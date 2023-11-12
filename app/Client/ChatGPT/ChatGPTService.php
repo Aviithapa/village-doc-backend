@@ -25,21 +25,21 @@ class ChatGPTService implements AiServiceInterface
     {
         try {
 
-            $response =
+            $data =
                 Http::withHeaders([
                     'Content-Type' => 'application/json',
-                    'Authorization' => 'Bearer ' . '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',
+                    'Authorization' => 'Bearer ' . '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',
                 ])
                 ->post("https://api.openai.com/v1/chat/completions", [
                     "model" => "gpt-3.5-turbo",
                     'messages' => [
                         [
                             "role" => "user",
-                            "content" => 'Hello from bot'
+                            "content" => $message
                         ]
                     ],
                     'temperature' => 0.5,
-                    "max_tokens" => 500,
+                    "max_tokens" => 1500,
                     "top_p" => 1.0,
                     "frequency_penalty" => 0.52,
                     "presence_penalty" => 0.5,
@@ -47,9 +47,7 @@ class ChatGPTService implements AiServiceInterface
                 ])
                 ->json();
 
-            // dd($response);
-            // return $response;
-            return response()->json($response, 200, array(), JSON_PRETTY_PRINT);
+            return response()->json($data['choices'][0]['message'], 200, array(), JSON_PRETTY_PRINT);
         } catch (Exception $e) {
 
             throw new BadRequestHttpException($e->getMessage());

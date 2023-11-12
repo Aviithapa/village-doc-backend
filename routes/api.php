@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Doctor\DoctorController;
 use App\Http\Controllers\MedicalRecord\MedicalRecordController;
 use App\Http\Controllers\Patients\PatientsController;
 use App\Http\Controllers\Vital\VitalController;
@@ -25,5 +26,6 @@ Route::get('/refresh-token', [AuthController::class, 'refresh'])->middleware(['a
 Route::apiResource('/patients', PatientsController::class)->middleware(['auth:api']);
 Route::apiResource('/vital', VitalController::class)->middleware(['auth:api']);
 Route::apiResource('/medical-record', MedicalRecordController::class)->middleware(['auth:api']);
+Route::apiResource('/doctor', DoctorController::class)->middleware(['auth:api']);
 Route::get('/patient/select', [PatientsController::class, 'select'])->middleware(['auth:api'])->name('patient.select');
 Route::get('/patient/vitals/{id}', [PatientsController::class, 'patientVital'])->middleware(['auth:api'])->name('patient.vital');

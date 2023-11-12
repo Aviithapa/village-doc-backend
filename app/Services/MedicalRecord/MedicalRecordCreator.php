@@ -4,6 +4,8 @@ namespace App\Services\MedicalRecord;
 
 use App\Client\ChatGPT\ChatGPTService;
 use App\Repositories\MedicalRecord\MedicalRecordRepository;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class  MedicalRecordCreator
@@ -36,10 +38,16 @@ class MedicalRecordCreator
      */
     public function store(array $data)
     {
-        $chat =  $this->chatGptService->chat($data['diagnosis']);
-        dd($chat);
-        return $chat;
-        // $medicalRecord =  $this->medicalRecordRepository->store($data);
-        // return $medicalRecord->refresh();
+        DB::beginTransaction();
+        try {
+            $chat =  $this->chatGptService->chat($data['diagnosis']);
+            $this->medicalRecordRepository->store($data);
+            DB::commit();
+            return $chat;
+        } catch (Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            DB::rollBack();
+            return $e;
+        }
     }
 }

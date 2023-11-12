@@ -42,6 +42,7 @@ class MedicalRecordController extends Controller
         //
         $data = $request->all();
 
+        return $medicalRecordCreator->store($data);
         return $this->successResponse(
             MedicalRecordResource::make($medicalRecordCreator->store($data)),
             __('MedicalRecord.create_success'),

@@ -56,7 +56,7 @@ class VitalGetter
      */
     public function patientTodayVital($id)
     {
-        $today = Carbon::now()->format('Y-m-d');
+        $today = Carbon::now('Asia/Kathmandu')->format('Y-m-d');
         $data = $this->vitalRepository->all()->where('patient_id', $id)->where('date_of_measurement', $today)->toArray();
         return array_values($data);
     }

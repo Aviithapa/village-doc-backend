@@ -4,6 +4,7 @@ namespace App\Services\Vital;
 
 
 use App\Repositories\Vital\VitalRepository;
+use Carbon\Carbon;
 
 /**
  * Class  VitalCreator
@@ -48,6 +49,8 @@ class VitalCreator
                 'measurement' => $vital['measurement'],
                 'date_of_measurement' => $dateOfMeasurement,
                 'patient_id' => $patientId,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ];
         }
         $vital =  $this->vitalRepository->insert($bulkInsertData);
