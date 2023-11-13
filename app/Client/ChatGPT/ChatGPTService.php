@@ -39,13 +39,14 @@ class ChatGPTService implements AiServiceInterface
                         ]
                     ],
                     'temperature' => 0.5,
-                    "max_tokens" => 1500,
+                    "max_tokens" => 3000,
                     "top_p" => 1.0,
                     "frequency_penalty" => 0.52,
                     "presence_penalty" => 0.5,
                     "stop" => ["11."],
                 ])
                 ->json();
+
 
             return response()->json($data['choices'][0]['message'], 200, array(), JSON_PRETTY_PRINT);
         } catch (Exception $e) {

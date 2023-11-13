@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Repositories\Doctor;
+namespace App\Repositories\Appointment;
 
-use App\Models\Doctor;
+use App\Models\Appointment;
 use App\Repositories\Repository;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class DoctorRepository extends Repository
+class AppointmentRepository extends Repository
 {
 
     /**
-     * DoctorRepository constructor.
-     * @param Doctor $Doctor
+     * AppointmentRepository constructor.
+     * @param Appointment $appointment
      */
-    public function __construct(Doctor $Doctor)
+    public function __construct(Appointment $appointment)
     {
-        parent::__construct($Doctor);
+        parent::__construct($appointment);
     }
 
     /**
@@ -28,7 +28,7 @@ class DoctorRepository extends Repository
     {
         $limit = $request->get('limit', config('app.per_page'));
         return $this->model->newQuery()
-            ->filter(new DoctorFilter($request))
+            ->filter(new AppointmentFilter($request))
             ->latest()
             ->paginate($limit);
     }

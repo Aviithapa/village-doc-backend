@@ -37,17 +37,11 @@ class MedicalRecordController extends Controller
      * @param MedicalRecordCreator $labResu;tCreator
      * @return JsonResponse
      */
-    public function store(CreateMedicalRecordRequest $request, MedicalRecordCreator $medicalRecordCreator): JsonResponse
+    public function store(CreateMedicalRecordRequest $request, MedicalRecordCreator $medicalRecordCreator)
     {
         //
         $data = $request->all();
-
         return $medicalRecordCreator->store($data);
-        return $this->successResponse(
-            MedicalRecordResource::make($medicalRecordCreator->store($data)),
-            __('MedicalRecord.create_success'),
-            Response::HTTP_CREATED
-        );
     }
 
     /**

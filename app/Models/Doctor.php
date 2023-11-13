@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Infrastructure\Traits\HasFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Doctor extends Model
 {
-    use HasFactory, SoftDeletes; // If you want to use soft deletes
+    use HasFactory, SoftDeletes, HasFilter; // If you want to use soft deletes
 
     protected $fillable = [
         'salutation',
