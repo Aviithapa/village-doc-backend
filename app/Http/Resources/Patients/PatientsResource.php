@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Patients;
 
+use App\Http\Resources\MedicalRecord\MedicalRecordResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -23,8 +24,9 @@ class PatientsResource extends JsonResource
             'contact_number' => $this->contact_number,
             'address' => $this->address,
             'vitals' => $this->vitals,
-            'medical_records' => $this->medicalRecords,
+            'medical_records' => MedicalRecordResource::collection($this->medicalRecords),
             'latest_visit' => $this->latestMedicalRecord,
+            'allergies' => $this->allergies,
         ];
     }
 }

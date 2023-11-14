@@ -5,6 +5,7 @@ namespace App\Services\Patients;
 use App\Client\ChatGPT\ChatGPTService;
 use App\Repositories\Patients\PatientsRepository;
 use App\Services\Vital\VitalCreator;
+use Illuminate\Support\Str;
 
 /**
  * Class  PatientsCreator
@@ -40,12 +41,8 @@ class PatientsCreator
      */
     public function store(array $data)
     {
-        // $chat =  $this->chatGptService->chat($data['description']);
-        // dd($chat);
-
+        $data['uuid'] = Str::uuid()->toString();
         $patients =  $this->patientsRepository->store($data);
-        // $data['patient_id'] = $patients->id;
-        // $this->vitalCreator->store($data);
         return $patients->refresh();
     }
 }

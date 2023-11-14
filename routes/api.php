@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Allergies\AllergiesController;
 use App\Http\Controllers\Appointment\AppointmentController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Doctor\DoctorController;
@@ -29,5 +30,7 @@ Route::apiResource('/vital', VitalController::class)->middleware(['auth:api']);
 Route::apiResource('/medical-record', MedicalRecordController::class)->middleware(['auth:api']);
 Route::apiResource('/doctor', DoctorController::class)->middleware(['auth:api']);
 Route::apiResource('/appointment', AppointmentController::class)->middleware(['auth:api']);
+Route::apiResource('/allergies', AllergiesController::class)->middleware(['auth:api']);
+
 Route::get('/patient/select', [PatientsController::class, 'select'])->middleware(['auth:api'])->name('patient.select');
 Route::get('/patient/vitals/{id}', [PatientsController::class, 'patientVital'])->middleware(['auth:api'])->name('patient.vital');

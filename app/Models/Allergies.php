@@ -7,28 +7,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Appointment extends Model
+class Allergies extends Model
 {
-    use HasFactory, SoftDeletes, HasFilter;
+    use HasFactory,
+        SoftDeletes,
+        HasFilter;
 
     protected $fillable = [
         'patient_id',
-        'doctor_id',
-        'medical_record_id',
-        'appointment_date',
-        'appointment_time',
-        'reason',
-        'status',
-        'urgent',
+        'allergen_name',
+        'reaction'
     ];
 
     public function patient()
     {
         return $this->belongsTo(Patients::class, 'patient_id', 'id');
-    }
-
-    public function doctor()
-    {
-        return $this->belongsTo(Doctor::class, 'doctor_id', 'id');
     }
 }

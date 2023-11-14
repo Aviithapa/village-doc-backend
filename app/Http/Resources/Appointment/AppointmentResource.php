@@ -19,9 +19,6 @@ class AppointmentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'patient_id' => $this->patient_id,
-            'doctor_id' => $this->doctor_id,
-            'medical_record_id' => $this->medical_record_id,
             'appointment_date' => $this->appointment_date,
             'appointment_time' => $this->appointment_time,
             'reason' => $this->reason,
@@ -29,7 +26,7 @@ class AppointmentResource extends JsonResource
             'urgent' => $this->urgent,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'patient' => new PatientsResource($this->whenLoaded('patient')),
+            'patient' => $this->patient,
             'doctor' => new DoctorResource($this->whenLoaded('doctor')),
             'medical_record' => new MedicalRecordResource($this->whenLoaded('medicalRecord')),
         ];

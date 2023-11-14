@@ -34,11 +34,17 @@ class Patients extends Model
         'gender',
         'contact_number',
         'address',
+        'uuid'
     ];
 
     public function vitals(): HasMany
     {
         return $this->hasMany(Vital::class, 'patient_id', 'id');
+    }
+
+    public function allergies(): HasMany
+    {
+        return $this->hasMany(Allergies::class, 'patient_id', 'id');
     }
 
     public function medicalRecords(): HasMany
@@ -49,5 +55,10 @@ class Patients extends Model
     public function latestMedicalRecord(): HasOne
     {
         return $this->hasOne(MedicalRecord::class, 'patient_id', 'id')->latest();
+    }
+
+    public function appointment(): BelongsTo
+    {
+        return $this->belongsTo(Appointment::class, 'patient_id', 'id');
     }
 }

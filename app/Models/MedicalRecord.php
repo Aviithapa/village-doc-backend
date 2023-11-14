@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MedicalRecord extends Model
@@ -30,5 +31,15 @@ class MedicalRecord extends Model
     public function vitals(): HasMany
     {
         return $this->hasMany(Vital::class, 'patient_id', 'id');
+    }
+
+    public function prescription(): HasMany
+    {
+        return $this->hasMany(Prescription::class, 'medical_record_id', 'id');
+    }
+
+    public function appointment(): HasMany
+    {
+        return $this->hasMany(Appointment::class, 'medical_record_id', 'id');
     }
 }
