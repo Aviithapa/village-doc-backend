@@ -27,6 +27,7 @@ class PatientsResource extends JsonResource
             'medical_records' => MedicalRecordResource::collection($this->medicalRecords),
             'latest_visit' => $this->latestMedicalRecord,
             'allergies' => $this->allergies,
+            'medias' => $this->medias,
         ];
     }
 }

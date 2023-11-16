@@ -30,7 +30,8 @@ class CreatePatientsRequest extends FormRequest
             'date_of_birth' => 'required|date|date_format:Y-m-d',
             'gender' => ['sometimes', 'required', 'max:255', $genderRule],
             'contact_number' => 'required|max:255',
-            'address' => 'sometimes|required',
+            'address' => 'required',
+            'images' => 'required'
 
         ];
     }

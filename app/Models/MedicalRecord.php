@@ -42,4 +42,9 @@ class MedicalRecord extends Model
     {
         return $this->hasMany(Appointment::class, 'medical_record_id', 'id');
     }
+
+    public function medias(): HasMany
+    {
+        return $this->hasMany(Medias::class, 'medical_record_id', 'id');
+    }
 }

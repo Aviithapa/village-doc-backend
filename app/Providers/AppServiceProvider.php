@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Client\ChatGPT\AiServiceInterface;
 use App\Client\ChatGPT\ChatGPTService;
+use App\Client\FileUpload\FileUploaderInterface;
+use App\Client\FileUpload\LocalFileUploader;
 use App\Repositories\Role\RoleRepository;
 use App\Repositories\User\UserRepository;
 use Illuminate\Support\ServiceProvider;
@@ -33,5 +35,6 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(AiServiceInterface::class, ChatGPTService::class);
+        $this->app->bind(FileUploaderInterface::class, LocalFileUploader::class);
     }
 }

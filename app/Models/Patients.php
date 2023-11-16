@@ -61,4 +61,9 @@ class Patients extends Model
     {
         return $this->belongsTo(Appointment::class, 'patient_id', 'id');
     }
+
+    public function medias(): HasMany
+    {
+        return $this->hasMany(Medias::class, 'patient_id', 'id');
+    }
 }
