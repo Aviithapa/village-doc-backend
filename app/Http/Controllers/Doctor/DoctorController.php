@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\ApiResponser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Doctor\CreateDoctorRequest;
 use App\Http\Resources\Doctor\DoctorResource;
-use App\Services\doctor\DoctorCreator;
+use App\Services\Doctor\DoctorCreator;
 use App\Services\Doctor\DoctorGetter;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
