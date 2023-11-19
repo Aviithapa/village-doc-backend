@@ -28,7 +28,7 @@ class AppointmentResource extends JsonResource
             'updated_at' => $this->updated_at,
             'patient' => $this->patient,
             'doctor' => new DoctorResource($this->whenLoaded('doctor')),
-            'medical_record' => new MedicalRecordResource($this->whenLoaded('medicalRecord')),
+            'medical_record' => new MedicalRecordResource($this->medicalRecord),
         ];
     }
 }
