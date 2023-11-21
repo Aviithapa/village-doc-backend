@@ -47,9 +47,11 @@ class MedicalRecordCreator
     {
         DB::beginTransaction();
         try {
-            $message = "I'm experiencing " . $data['diagnosis']  . " . What could be the possible causes, and what general advice or precautions should I consider? Please note that I understand this is not a substitute for professional medical advice, 
-            but I'm looking for general information and suggestions.";
-            $chat =  $this->chatGptService->chat($message);
+            // remove comment after chatgpt token works
+            // $message = "I'm experiencing " . $data['diagnosis']  . " . What could be the possible causes, and what general advice or precautions should I consider? Please note that I understand this is not a substitute for professional medical advice, 
+            // but I'm looking for general information and suggestions.";
+            // $chat =  $this->chatGptService->chat($message);
+            $chat = " ";
             $medicalRecord = $this->medicalRecordRepository->store($data);
             $prescriptionData = [
                 'patient_id' => $data['patient_id'],
