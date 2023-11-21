@@ -4,6 +4,7 @@ use App\Http\Controllers\Allergies\AllergiesController;
 use App\Http\Controllers\Appointment\AppointmentController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Doctor\DoctorController;
+use App\Http\Controllers\LabResult\LabController;
 use App\Http\Controllers\MedicalRecord\MedicalRecordController;
 use App\Http\Controllers\Patients\PatientsController;
 use App\Http\Controllers\Vital\VitalController;
@@ -35,3 +36,4 @@ Route::apiResource('/allergies', AllergiesController::class)->middleware(['auth:
 Route::get('/patient/select', [PatientsController::class, 'select'])->middleware(['auth:api'])->name('patient.select');
 Route::get('/patient/vitals/{id}', [PatientsController::class, 'patientVital'])->middleware(['auth:api'])->name('patient.vital');
 Route::post('/patient/QRScan', [PatientsController::class, 'qrScan'])->name('patient.qrScan');
+Route::post('/lab-result/store', [LabController::class, 'store'])->middleware(['auth:api'])->name('labResult.store');
