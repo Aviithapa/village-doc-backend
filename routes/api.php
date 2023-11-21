@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Doctor\DoctorController;
 use App\Http\Controllers\LabResult\LabController;
 use App\Http\Controllers\MedicalRecord\MedicalRecordController;
+use App\Http\Controllers\Medication\MedicationController;
 use App\Http\Controllers\Patients\PatientsController;
 use App\Http\Controllers\Vital\VitalController;
 use Illuminate\Support\Facades\Route;
@@ -37,3 +38,6 @@ Route::get('/patient/select', [PatientsController::class, 'select'])->middleware
 Route::get('/patient/vitals/{id}', [PatientsController::class, 'patientVital'])->middleware(['auth:api'])->name('patient.vital');
 Route::get('/patient/QRScan/{uuid}', [PatientsController::class, 'qrScan'])->name('patient.qrScan');
 Route::post('/lab-result/store', [LabController::class, 'store'])->middleware(['auth:api'])->name('labResult.store');
+
+Route::apiResource('/medication', MedicationController::class)->middleware(['auth:api']);
+Route::post('/medication/bulk/store', [MedicationController::class, 'medicationBulkUpload'])->middleware(['auth:api'])->name('medication.bulk.upload');
