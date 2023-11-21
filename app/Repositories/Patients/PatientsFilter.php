@@ -3,6 +3,7 @@
 namespace App\Repositories\Patients;
 
 use App\Infrastructure\Filters\BaseFilter;
+use Carbon\Carbon;
 
 class PatientsFilter extends BaseFilter
 {
@@ -11,7 +12,7 @@ class PatientsFilter extends BaseFilter
      *
      * @var array
      */
-    protected $filters = ['keyword', 'type', 'status', 'name'];
+    protected $filters = ['keyword', 'type', 'status', 'name','month','year','start_date'];
 
 
     /**
@@ -54,4 +55,30 @@ class PatientsFilter extends BaseFilter
             $this->builder->where('name', 'LIKE', '%' . $this->request->get('name') . '%');
         }
     }
+
+    public function year()
+    {
+        if ($this->request->has('year')) {
+            $this->builder->where('created_at', 'LIKE', $this->request->get('year') . '%');
+        }
+    }
+
+    public function month()
+    {
+        if ($this->request->has('month')) {
+            $year = $this->request->get('year')??Carbon::now()->year;
+            $yearMonthFilter = $year.'-' . $this->request->get('month');
+            $this->builder->where('created_at', 'LIKE', $yearMonthFilter . '%');
+        }
+    }
+
+    public function startDate()
+    {
+        if ($this->request->has('start_date') && $this->request->has('end_date')) {
+            $startDate =  $this->request->get('start_date');
+            $endDate =  $this->request->get('end_date');
+            $this->builder->whereBetween('created_at', [$startDate, $endDate])->get();
+        }
+    }
+
 }
