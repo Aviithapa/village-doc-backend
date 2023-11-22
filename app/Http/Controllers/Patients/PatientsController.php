@@ -97,4 +97,16 @@ class PatientsController extends Controller
     {
         return $vitalGetter->patientTodayVital($id);
     }
+
+    public function qrScan(Request $request,PatientsGetter $patientsGetter): JsonResponse
+    {
+        $uuid = $request->uuid;
+        if(!$uuid){
+            return $this->errorResponse('Patients uuid not found.', Response::HTTP_NOT_FOUND);
+        }
+
+        $data = $patientsGetter->patiendDetails($uuid);
+
+        return  $this->successResponse($data);
+    }
 }
