@@ -17,9 +17,11 @@ return new class extends Migration
             $table->string('medication_name');
             $table->string('dosage');
             $table->string('quantity');
-            $table->enum('form',['tablet', 'capsule', 'liquid'])->nullable()->default('tablet');
-            $table->enum('route',['oral', 'intravenous', 'topical'])->nullable()->default('oral');
+            $table->enum('form',['TABLET', 'CAPSULE', 'LIQUID'])->default('TABLET');
+            $table->enum('route',['ORAL', 'INTRAVENOUS', 'TROPICAL'])->default('ORAL');
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

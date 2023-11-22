@@ -2,13 +2,12 @@
 
 namespace App\Services\Medication;
 
-use App\Models\Medication;
 use App\Repositories\Medication\MedicationRepository;
 
 
 /**
- * Class  DoctorCreator
- * @package App\Services\Doctor
+ * Class  MedicationCreator
+ * @package App\Services\Medication
  */
 class MedicationCreator
 {
@@ -19,7 +18,7 @@ class MedicationCreator
 
 
     /**
-     * DoctorGetter constructor.
+     * MedicationCreator constructor.
      * @param MedicationRepository $medicationRepository
 
      */
@@ -29,24 +28,24 @@ class MedicationCreator
     }
 
     /**
-     * Store an doctor
+     * Store an medication
      * @param array $data
      * @return \Illuminate\Database\Eloquent\Model
      */
     public function store(array $data)
     {
-        $doctor =  $this->medicationRepository->store($data);
-        return $doctor->refresh();
+        $medication =  $this->medicationRepository->store($data);
+        return $medication->refresh();
     }
 
     public function bulkStore($data)
     {
         $medications = $data['medication'];
 
-        foreach($medications as $value){
-            $value['prescription_id'] = $data['prescription_id'];
-            $med = Medication::create($value);
+        foreach($medications as $key => $value){
+            $medications[$key]['prescription_id'] = $data['prescription_id'];
         }
-        return $med->refresh();
+        $medications =  $this->medicationRepository->insert($medications);
+        return $medications;
     }
 }

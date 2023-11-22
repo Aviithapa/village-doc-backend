@@ -14,9 +14,9 @@ class MedicationRepository extends Repository
      * DoctorRepository constructor.
      * @param Doctor $Doctor
      */
-    public function __construct(Medication $Medication)
+    public function __construct(Medication $medication)
     {
-        parent::__construct($Medication);
+        parent::__construct($medication);
     }
 
     /**
@@ -28,7 +28,6 @@ class MedicationRepository extends Repository
     {
         $limit = $request->get('limit', config('app.per_page'));
         return $this->model->newQuery()
-            // ->filter(new DoctorFilter($request))
             ->latest()
             ->paginate($limit);
     }

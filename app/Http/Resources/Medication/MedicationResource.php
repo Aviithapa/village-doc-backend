@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Medication;
 
+use App\Http\Resources\Prescription\PrescriptionResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,7 +17,6 @@ class MedicationResource extends JsonResource
     {
         return [
             "id"   => $this->id,
-            'prescription_id' => $this->prescription_id,
             "medication_name"  => $this->medication_name,
             'dosage'  => $this->dosage,
             'quantity' => $this->quantity,

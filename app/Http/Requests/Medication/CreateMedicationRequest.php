@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Medication;
 
+use App\Models\Medication;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateMedicationRequest extends FormRequest
 {
@@ -21,13 +23,16 @@ class CreateMedicationRequest extends FormRequest
      */
     public function rules(): array
     {
+        $formRule = Rule::in(Medication::FORM);
+        $routeRule = Rule::in(Medication::ROUTE);
+
         return [
             'prescription_id'  => 'required|integer|exists:prescriptions,id',
             'medication_name' => 'required|string|max:255',
             'dosage' => 'required',
             'quantity' => 'required',
-            'form' => 'nullable|in:tablet,capsule,liquid',
-            'route' => 'nullable|in:oral,intravenous,topical'
+            'form' => ['nullable',$formRule],
+            'route' => ['nullable', $routeRule]
         ];
     }
 }

@@ -16,14 +16,13 @@ class MedicationController extends Controller
     use ApiResponser;
     /**
      * Show the form for creating a new resource.
-     * @param CreateDoctorRequest $request
+     * @param CreateMedicationRequest $request
      * @param MedicationCreator $medicationCreator
      * @return JsonResponse
      */
     public function store(CreateMedicationRequest $request, MedicationCreator $medicationCreator): JsonResponse
     {
         $data = $request->all();
-
         return $this->successResponse(
             MedicationResource::make($medicationCreator->store($data)),
             __('medication.create_success'),
@@ -35,7 +34,7 @@ class MedicationController extends Controller
         $data = $request->all();
 
         return $this->successResponse(
-            MedicationResource::make($medicationCreator->bulkStore($data)),
+            $medicationCreator->bulkStore($data),
             __('medication.create_success'),
             Response::HTTP_CREATED
         );

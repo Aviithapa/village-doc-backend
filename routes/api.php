@@ -41,3 +41,5 @@ Route::post('/lab-result/store', [LabController::class, 'store'])->middleware(['
 
 Route::apiResource('/medication', MedicationController::class)->middleware(['auth:api']);
 Route::post('/medication/bulk/store', [MedicationController::class, 'medicationBulkUpload'])->middleware(['auth:api'])->name('medication.bulk.upload');
+Route::post('/medication/store', [MedicationController::class, 'store'])->middleware(['auth:api'])->name('medication.store');
+Route::post('/medication/bulk/store', [MedicationController::class, 'medicationBulkUpload'])->middleware(['auth:api'])->name('medication.bulk.upload');
