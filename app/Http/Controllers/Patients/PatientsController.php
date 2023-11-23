@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Patients;
 use App\Http\Controllers\Api\ApiResponser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Patients\CreatePatientsRequest;
+use App\Http\Requests\Patients\PatientUUIDRequest;
 use App\Http\Resources\Patients\PatientSelectResource;
 use App\Http\Resources\Patients\PatientsResource;
 use App\Http\Resources\Vital\VitalResource;
@@ -98,15 +99,9 @@ class PatientsController extends Controller
         return $vitalGetter->patientTodayVital($id);
     }
 
-    public function qrScan(Request $request,PatientsGetter $patientsGetter): JsonResponse
+    public function qrScan(PatientUUIDRequest $request, PatientsGetter $patientsGetter): JsonResponse
     {
-        $uuid = $request->uuid;
-        if(!$uuid){
-            return $this->errorResponse('Patients uuid not found.', Response::HTTP_NOT_FOUND);
-        }
-
-        $data = $patientsGetter->patiendDetails($uuid);
-
+        $data = $patientsGetter->patientsDetails($request->uuid);
         return  $this->successResponse($data);
     }
 }

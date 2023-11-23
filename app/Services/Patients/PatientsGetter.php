@@ -55,23 +55,22 @@ class PatientsGetter
      * @param $uuid
      * @return Object|null
      */
-    public function patiendDetails($uuid)
+    public function patientsDetails($uuid)
     {
-        $patient =  Patients::where('uuid',$uuid)->firstOrFail();
+        $patient =  Patients::where('uuid', $uuid)->firstOrFail();
 
         $factory = JWTFactory::customClaims([
-                            'sub'   => $patient->uuid
-                        ]);
-                
+            'sub'   => $patient->uuid
+        ]);
+
         $payload = $factory->make();
         $token = JWTAuth::encode($payload)->get();
-            
+
         $data = [
             'access_token' => $token,
             'patient_details' => PatientsResource::make($patient)
         ];
 
         return $data;
-         
     }
 }
