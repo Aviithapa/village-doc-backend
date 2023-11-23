@@ -43,7 +43,7 @@ class LabResultCreator
     public function store(array $data)
     {
         $response =  $this->fileUploader->upload($data['image'], "labReport");
-        $response['type'] = Medias::TYPE_PHOTO;
+        $response['type'] = Medias::TYPE_TEST_REPORT;
 
         $labResult =  $this->labResultRepository->store($data);
         $response['patient_id'] = $data['patient_id'];
