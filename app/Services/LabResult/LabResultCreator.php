@@ -20,7 +20,7 @@ class LabResultCreator
     protected $labResultRepository;
     protected $fileUploader;
     protected $mediaRepository;
-    
+
     /**
      * LabResultGetter constructor.
      * @param LabResultRepository $labResultRepository
@@ -29,8 +29,7 @@ class LabResultCreator
         LabResultRepository $labResultRepository,
         FileUploaderInterface $fileUploader,
         MediaRepository $mediaRepository
-    )
-    {
+    ) {
         $this->labResultRepository = $labResultRepository;
         $this->fileUploader = $fileUploader;
         $this->mediaRepository = $mediaRepository;
@@ -43,7 +42,7 @@ class LabResultCreator
      */
     public function store(array $data)
     {
-        $response =  $this->fileUploader->upload($data['image'], "photos");
+        $response =  $this->fileUploader->upload($data['image'], "labReport");
         $response['type'] = Medias::TYPE_PHOTO;
 
         $labResult =  $this->labResultRepository->store($data);
