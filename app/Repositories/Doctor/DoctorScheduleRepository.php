@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Repositories\Doctor;
+
+use App\Models\DoctorSchedule;
+use App\Repositories\Repository;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+
+class DoctorScheduleRepository extends Repository
+{
+
+    /**
+     * DoctorScheduleRepository constructor.
+     * @param DoctorSchedule $DoctorSchedule
+     */
+    public function __construct(DoctorSchedule $doctorSchedule)
+    {
+        parent::__construct($doctorSchedule);
+    }
+
+    /**
+     * @param Request $request
+     * @param array $columns
+     * @return LengthAwarePaginator
+     */
+    public function getPaginatedList(Request $request, array $columns = array('*')): LengthAwarePaginator
+    {
+        $limit = $request->get('limit', config('app.per_page'));
+        return $this->model->newQuery()
+            ->latest()
+            ->paginate($limit);
+    }
+}
