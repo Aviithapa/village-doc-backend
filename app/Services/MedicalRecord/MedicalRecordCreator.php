@@ -46,30 +46,36 @@ class MedicalRecordCreator
     public function store(array $data)
     {
         DB::beginTransaction();
+
         try {
-            // remove comment after chatgpt token works
-            // $message = "I'm experiencing " . $data['diagnosis']  . " . What could be the possible causes, and what general advice or precautions should I consider? Please note that I understand this is not a substitute for professional medical advice, 
-            // but I'm looking for general information and suggestions.";
-            // $chat =  $this->chatGptService->chat($message);
-            $chat = " ";
             $medicalRecord = $this->medicalRecordRepository->store($data);
+
             $prescriptionData = [
                 'patient_id' => $data['patient_id'],
                 'medical_record_id' => $medicalRecord->id,
-                'from' => Prescription::FROM_AI,
+                'from' => $data['from'] ?? Prescription::FROM_HEALTH_WORKER,
                 'prescription_date' => Carbon::now(),
-                'suggested_treatment' => $chat
+                'suggested_treatment' => ''
             ];
+
+            if ($data['from'] === Prescription::FROM_AI) {
+                $message = "I'm experiencing " . $data['diagnosis']  . " . What could be the possible causes, and what general advice or precautions should I consider? Please note that I understand this is not a substitute for professional medical advice, but I'm looking for general information and suggestions.";
+                $chat =  $this->chatGptService->chat($message);
+                $prescriptionData['suggested_treatment'] = $chat;
+            }
+
             $this->prescriptionCreator->store($prescriptionData);
+
             DB::commit();
+
             return [
-                'chat' => $chat,
+                'chat' => $chat ?? null,
                 'medicalRecord' => $medicalRecord
             ];
         } catch (Exception $e) {
-            session()->flash('danger', 'Oops! Something went wrong.');
+
             DB::rollBack();
-            return $e;
+            throw $e;
         }
     }
 }
