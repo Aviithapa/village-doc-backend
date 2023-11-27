@@ -35,5 +35,5 @@ Route::apiResource('/allergies', AllergiesController::class)->middleware(['auth:
 
 Route::get('/patient/select', [PatientsController::class, 'select'])->middleware(['auth:api'])->name('patient.select');
 Route::get('/patient/vitals/{id}', [PatientsController::class, 'patientVital'])->middleware(['auth:api'])->name('patient.vital');
-Route::post('/patient/QRScan', [PatientsController::class, 'qrScan'])->name('patient.qrScan');
+Route::get('/patient/QRScan/{uuid}', [PatientsController::class, 'qrScan'])->name('patient.qrScan');
 Route::post('/lab-result/store', [LabController::class, 'store'])->middleware(['auth:api'])->name('labResult.store');

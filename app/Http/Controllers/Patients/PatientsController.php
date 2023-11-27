@@ -99,9 +99,9 @@ class PatientsController extends Controller
         return $vitalGetter->patientTodayVital($id);
     }
 
-    public function qrScan(PatientUUIDRequest $request, PatientsGetter $patientsGetter): JsonResponse
+    public function qrScan($uuid, PatientsGetter $patientsGetter): JsonResponse
     {
-        $data = $patientsGetter->patientsDetails($request->uuid);
+        $data = $patientsGetter->patientsDetails($uuid);
         return  $this->successResponse($data);
     }
 }
