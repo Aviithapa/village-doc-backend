@@ -2,9 +2,12 @@
 
 namespace App\Services\Doctor;
 
+use App\Models\Doctor;
 use Illuminate\Http\Request;
 use App\Repositories\Doctor\DoctorRepository;
+use App\Services\Appointment\AppointmentGetter;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class DoctorGetter
@@ -16,14 +19,16 @@ class DoctorGetter
      * @var DoctorRepository
      */
     protected $doctorRepository;
+    protected $appointmentGetter;
 
     /**
      * DoctorGetter constructor.
      * @param DoctorRepository $doctorRepository
      */
-    public function __construct(DoctorRepository $doctorRepository)
+    public function __construct(DoctorRepository $doctorRepository,AppointmentGetter $appointmentGetter)
     {
         $this->doctorRepository = $doctorRepository;
+        $this->appointmentGetter = $appointmentGetter;
     }
 
     /**
@@ -44,5 +49,27 @@ class DoctorGetter
     public function show($id)
     {
         return $this->doctorRepository->findOrFail($id);
+    }
+
+    public function doctorList($data)
+    {
+        if(isset($data['appointment_date'])){
+            $doctors = Doctor::get()->pluck('id');
+            $doc = [];
+            foreach($doctors as $doctor){
+                $response = $this->appointmentGetter->checkAppointment($data['appointment_date'],$doctor); 
+                if($response){
+                    $doc[] = $doctor;
+                }
+            }
+            $doctors = Doctor::select(DB::raw('id, CONCAT(salutation, " ", first_name," ", last_name) as name'))
+                            ->whereIn('id',$doc)
+                            ->get()->toArray();
+
+        }else{
+            $doctors = Doctor::select(DB::raw('id, CONCAT(salutation, " ", first_name," ", last_name) as name'))->get()->toArray();
+        }
+        
+        return $doctors;
     }
 }

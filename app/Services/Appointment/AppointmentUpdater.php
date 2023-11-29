@@ -33,8 +33,22 @@ class AppointmentUpdater
     public function update(int $id, array $data)
     {
         $appointment = $this->appointmentRepository->findOrFail($id);
-        $this->appointmentRepository->store($data);
-        return true;
+
+        if ($appointment) {
+            if($appointment->status == "queried" || $appointment->status == "scheduled"){
+                $appointmentUpdate = $this->appointmentRepository->update($appointment->id,$data);
+                if ($appointmentUpdate === false) {
+                    return response()->json(['error' => 'Internal Error'], 500);
+                }
+                $appointment =  $this->appointmentRepository->find($id);
+    
+                return $appointment;
+            }
+
+            return response()->json(['error' => 'Appointment canot be edited'], 403);
+            
+        }
+        return response()->json(['error' => 'Not Found'], 404);
     }
 
 

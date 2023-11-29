@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Appointment;
 use App\Http\Controllers\Api\ApiResponser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Appointment\CreateAppointmentRequest;
+use App\Http\Requests\Appointment\UpdateAppointmentRequest;
 use App\Http\Resources\Appointment\AppointmentResource;
 use App\Services\Appointment\AppointmentCreator;
 use App\Services\Appointment\AppointmentGetter;
+use App\Services\Appointment\AppointmentUpdater;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -58,9 +60,14 @@ class AppointmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateAppointmentRequest $request,AppointmentUpdater $appointmentUpdater,$id)
     {
-        //
+        $data = $request->all();
+        return $this->successResponse(
+            AppointmentResource::make($appointmentUpdater->update($id, $data)),
+            __('Doctor Schedule updated successfully'),
+            Response::HTTP_CREATED
+        );
     }
 
     /**

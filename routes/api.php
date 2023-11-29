@@ -36,6 +36,8 @@ Route::apiResource('/schedule', DoctorScheduleController::class)->middleware(['a
 Route::apiResource('/appointment', AppointmentController::class)->middleware(['auth:api']);
 Route::apiResource('/allergies', AllergiesController::class)->middleware(['auth:api']);
 
+Route::get('/doctors/list', [DoctorController::class, 'doctorList'])->middleware(['auth:api'])->name('doctor.list');
+
 Route::get('/patient/select', [PatientsController::class, 'select'])->middleware(['auth:api'])->name('patient.select');
 Route::get('/patient/vitals/{id}', [PatientsController::class, 'patientVital'])->middleware(['auth:api'])->name('patient.vital');
 Route::get('/patient/QRScan/{uuid}', [PatientsController::class, 'qrScan'])->name('patient.qrScan');
