@@ -16,11 +16,28 @@ class MedicalRecord extends Model
     use SoftDeletes;
     use HasFilter;
 
+    const TYPE_PENDING = "Pending";
+    const TYPE_APPOINTMENT = "Appointment Booked";
+    const TYPE_CONSULTING = "Consulting";
+    const TYPE_RESCHEDULED = "Rescheduled";
+    const TYPE_FOLLOW_UP = "Follow Up";
+    const TYPE_CLOSED = "Closed";
+
+    const RECORD_TYPE = [
+        self::TYPE_PENDING,
+        self::TYPE_APPOINTMENT,
+        self::TYPE_CONSULTING,
+        self::TYPE_RESCHEDULED,
+        self::TYPE_FOLLOW_UP,
+        self::TYPE_CLOSED,
+    ];
+
     protected $fillable = [
         'patient_id',
         'record_date',
         'notes',
         'diagnosis',
+        'status'
     ];
 
     public function patient(): BelongsTo
