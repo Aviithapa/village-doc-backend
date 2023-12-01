@@ -55,12 +55,8 @@ class AppointmentGetter
                                         ['doctor_id',$doctorId],
                                         ['appointment_date',$appointmentDate]
                                         ])
-                            // ->where(function ($query) use ($appointmentDate) {
-                            //     if($appointmentDate){
-                            //         $query->where('appointment_date',$appointmentDate);
-                            //     }
-                            // })
-                            ->get()->count();
+                            ->get()
+                            ->count();
 
         if($appointmentCount <=30)
             return true;

@@ -16,12 +16,12 @@ class MedicalRecord extends Model
     use SoftDeletes;
     use HasFilter;
 
-    const TYPE_PENDING = "Pending";
-    const TYPE_APPOINTMENT = "Appointment Booked";
-    const TYPE_CONSULTING = "Consulting";
-    const TYPE_RESCHEDULED = "Rescheduled";
-    const TYPE_FOLLOW_UP = "Follow Up";
-    const TYPE_CLOSED = "Closed";
+    const TYPE_PENDING = "PENDING";
+    const TYPE_APPOINTMENT = "APPOINTMENT BOOKED";
+    const TYPE_CONSULTING = "CONSULTING";
+    const TYPE_RESCHEDULED = "RESCHEDULED";
+    const TYPE_FOLLOW_UP = "FOLLOW UP";
+    const TYPE_CLOSED = "CLOSED";
 
     const RECORD_TYPE = [
         self::TYPE_PENDING,

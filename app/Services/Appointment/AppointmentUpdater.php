@@ -2,8 +2,12 @@
 
 namespace App\Services\Appointment;
 
-
+use App\Http\Controllers\Api\ApiResponser;
 use App\Repositories\Appointment\AppointmentRepository;
+use Exception;
+use Mockery\Expectation;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Throwable;
 
 /**
  * Class  AppointmentUpdater
@@ -15,6 +19,7 @@ class AppointmentUpdater
      * @var AppointmentRepository
      */
     protected $appointmentRepository;
+    use ApiResponser;
 
     /**
      * AppointmentGetter constructor.
@@ -33,22 +38,17 @@ class AppointmentUpdater
     public function update(int $id, array $data)
     {
         $appointment = $this->appointmentRepository->findOrFail($id);
-
-        if ($appointment) {
-            if($appointment->status == "queried" || $appointment->status == "scheduled"){
+        try{
+            if($appointment->status === "queried" || $appointment->status === "scheduled"){
                 $appointmentUpdate = $this->appointmentRepository->update($appointment->id,$data);
-                if ($appointmentUpdate === false) {
-                    return response()->json(['error' => 'Internal Error'], 500);
-                }
                 $appointment =  $this->appointmentRepository->find($id);
-    
                 return $appointment;
             }
+            throw  new  BadRequestHttpException('Appointment Cannot be edited');          
 
-            return response()->json(['error' => 'Appointment canot be edited'], 403);
-            
-        }
-        return response()->json(['error' => 'Not Found'], 404);
+        }catch(Exception $e){
+            throw $e;
+        }          
     }
 
 
