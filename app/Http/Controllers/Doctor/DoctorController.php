@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Doctor;
 use App\Http\Controllers\Api\ApiResponser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Doctor\CreateDoctorRequest;
+use App\Http\Requests\Doctor\UpdateDoctorRequest;
 use App\Http\Resources\Doctor\DoctorResource;
 use App\Services\Doctor\DoctorCreator;
 use App\Services\Doctor\DoctorGetter;
@@ -38,7 +39,6 @@ class DoctorController extends Controller
     {
         //
         $data = $request->all();
-
         return $this->successResponse(
             DoctorResource::make($doctorCreator->store($data)),
             __('patient.create_success'),
@@ -58,7 +58,7 @@ class DoctorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateDoctorRequest $request, string $id)
     {
         //
     }
