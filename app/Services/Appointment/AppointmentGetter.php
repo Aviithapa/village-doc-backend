@@ -2,6 +2,7 @@
 
 namespace App\Services\Appointment;
 
+use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Repositories\Appointment\AppointmentRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -44,5 +45,22 @@ class AppointmentGetter
     public function show($id)
     {
         return $this->appointmentRepository->findOrFail($id);
+    }
+
+    public function checkAppointment($appointmentDate,$doctorId)
+    {
+        $appointmentDate = $data['appointment_date']??null;
+
+        $appointmentCount = Appointment::where([
+                                        ['doctor_id',$doctorId],
+                                        ['appointment_date',$appointmentDate]
+                                        ])
+                            ->get()
+                            ->count();
+
+        if($appointmentCount <=30)
+            return true;
+
+        return false;
     }
 }

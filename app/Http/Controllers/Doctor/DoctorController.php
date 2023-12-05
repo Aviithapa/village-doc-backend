@@ -70,4 +70,11 @@ class DoctorController extends Controller
     {
         //
     }
+
+    public function doctorList(Request $request,DoctorGetter $doctorGetter)
+    {
+        $data = $request->all();
+        $doctorList = $doctorGetter->doctorList($data);
+        return  $this->successResponse($doctorList);
+    }
 }
