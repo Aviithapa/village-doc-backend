@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests\MedicalRecord;
 
+use App\Models\MedicalRecordDescription;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UpdateMedicalRecordRequest extends FormRequest
+class MedicalRecordStatusRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,11 +23,11 @@ class UpdateMedicalRecordRequest extends FormRequest
      */
     public function rules(): array
     {
+        $statusRule = Rule::in(MedicalRecordDescription::STATUS);
+
         return [
-            'diagnosis' => 'required',
-            'notes' => 'required',
-            'record_date' => 'required|date|date_format:Y-m-d',
-            'patient_id' => 'required|exists:patients,id',
+            'medical_record_id' => 'required|exists:medical_records,id',
+            'status' => ['required',$statusRule]
         ];
     }
 }

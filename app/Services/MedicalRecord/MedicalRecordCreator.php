@@ -3,11 +3,13 @@
 namespace App\Services\MedicalRecord;
 
 use App\Client\ChatGPT\ChatGPTService;
+use App\Models\MedicalRecordDescription;
 use App\Models\Prescription;
 use App\Repositories\MedicalRecord\MedicalRecordRepository;
 use App\Services\Prescription\PrescriptionCreator;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -48,6 +50,7 @@ class MedicalRecordCreator
         DB::beginTransaction();
 
         try {
+            $data['created_by'] = Auth::user()->id;
             $medicalRecord = $this->medicalRecordRepository->store($data);
 
             $prescriptionData = [
@@ -77,5 +80,11 @@ class MedicalRecordCreator
             DB::rollBack();
             throw $e;
         }
+    }
+
+    public function storeMedicalStatus(array $data)
+    {
+        $medical = MedicalRecordDescription::create($data);
+        return $medical->refresh();
     }
 }

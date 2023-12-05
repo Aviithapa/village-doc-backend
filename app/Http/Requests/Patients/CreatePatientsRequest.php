@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Patients;
 
+use App\Models\Medias;
 use App\Models\Patients;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -31,8 +32,8 @@ class CreatePatientsRequest extends FormRequest
             'gender' => ['sometimes', 'required', 'max:255', $genderRule],
             'contact_number' => 'required|max:255',
             'address' => 'required',
-            'images' => 'required'
-
+            'images' => 'required',
+            'ward_no'   => 'required'
         ];
     }
 }

@@ -6,11 +6,14 @@ use App\Http\Controllers\Api\ApiResponser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Patients\CreatePatientsRequest;
 use App\Http\Requests\Patients\PatientUUIDRequest;
+use App\Http\Requests\Patients\UpdatePatientsRequest;
+use App\Http\Resources\Patients\PatientListResource;
 use App\Http\Resources\Patients\PatientSelectResource;
 use App\Http\Resources\Patients\PatientsResource;
 use App\Http\Resources\Vital\VitalResource;
 use App\Services\Patients\PatientsCreator;
 use App\Services\Patients\PatientsGetter;
+use App\Services\Patients\PatientsUpdater;
 use App\Services\Vital\VitalGetter;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -29,7 +32,7 @@ class PatientsController extends Controller
      */
     public function index(Request $request, PatientsGetter $patientsGetter): AnonymousResourceCollection
     {
-        return  PatientsResource::collection($patientsGetter->getPaginatedList($request));
+        return  PatientListResource::collection($patientsGetter->getPaginatedList($request));
     }
 
     /**
@@ -43,7 +46,6 @@ class PatientsController extends Controller
     {
         //
         $data = $request->all();
-
         return $this->successResponse(
             PatientsResource::make($patientsCreator->store($data)),
             __('patient.create_success'),
@@ -67,17 +69,26 @@ class PatientsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdatePatientsRequest $request,PatientsUpdater $patientsUpdater, string $id)
     {
-        //
+        $data = $request->all();
+        return $this->successResponse(
+            PatientsResource::make($patientsUpdater->update($id,$data)),
+            __('patient.create_success'),
+            Response::HTTP_CREATED
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(PatientsUpdater $patientsUpdater, string $id)
     {
-        //
+        return $this->successResponse(
+            $patientsUpdater->destroy($id),
+             __('Patient Deleted Successfully!!'),
+             Response::HTTP_CREATED
+         );
     }
 
 
