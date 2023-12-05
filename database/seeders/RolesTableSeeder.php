@@ -18,7 +18,8 @@ class RolesTableSeeder extends Seeder
             ['name' => 'admin', 'display_name' => "Admin"],
             ['name' => 'ward-admin', 'display_name' => "Ward Admin"],
             ['name' => 'heath-worker', 'display_name' => 'Health Post User'],
-            ['name' => 'doctor', 'display_name' => 'Doctor']
+            ['name' => 'doctor', 'display_name' => 'Doctor'],
+            ['name' => 'nurse', 'display_name' => 'Nurse']
         ]);
     }
 }

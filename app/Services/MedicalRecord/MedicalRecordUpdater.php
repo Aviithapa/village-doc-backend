@@ -4,6 +4,7 @@ namespace App\Services\MedicalRecord;
 
 
 use App\Repositories\MedicalRecord\MedicalRecordRepository;
+use Exception;
 
 /**
  * Class  MedicalRecordUpdater
@@ -34,9 +35,15 @@ class MedicalRecordUpdater
      */
     public function update(int $id, array $data)
     {
-        $MedicalRecord = $this->medicalRecordRepository->findOrFail($id);
-        $this->medicalRecordRepository->store($data);
-        return true;
+        $medicalRecord = $this->medicalRecordRepository->findOrFail($id);
+        try{
+            $medicalRecordUpdate = $this->medicalRecordRepository->update($medicalRecord->id,$data);
+            $medicalRecord =  $this->medicalRecordRepository->find($id);
+            return $medicalRecord;
+
+        }catch(Exception $e){
+            throw $e;
+        }
     }
 
 
@@ -46,7 +53,7 @@ class MedicalRecordUpdater
      */
     public function destroy(int $id)
     {
-        //Todo: Delete MedicalRecord
-        return false;
+        $this->medicalRecordRepository->delete($id);
+        return true;
     }
 }

@@ -9,7 +9,9 @@ use App\Models\Medias;
 use App\Repositories\Media\MediaRepository;
 use App\Repositories\Patients\PatientsRepository;
 use App\Services\Vital\VitalCreator;
+use Exception;
 use Illuminate\Support\Str;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 /**
  * Class  PatientsCreator
@@ -52,13 +54,16 @@ class PatientsCreator
      */
     public function store(array $data)
     {
-
-        $data['uuid'] = Str::uuid()->toString();
-        $response =  $this->fileUploader->uploadBase64($data['images'], "photos");
-        $response['type'] = Medias::TYPE_PHOTO;
-        $patients =  $this->patientsRepository->store($data);
-        $response['patient_id'] = $patients->id;
-        $this->mediaRepository->store($response);
-        return $patients->refresh();
+        try{
+            $data['uuid'] = Str::uuid()->toString();
+            $response =  $this->fileUploader->uploadBase64($data['images'], "photos");
+            $response['type'] = Medias::TYPE_PHOTO;
+            $patients =  $this->patientsRepository->store($data);
+            $response['patient_id'] = $patients->id;
+            $this->mediaRepository->store($response);
+            return $patients->refresh();
+        }catch(Exception $e){
+            throw $e;
+        }
     }
 }

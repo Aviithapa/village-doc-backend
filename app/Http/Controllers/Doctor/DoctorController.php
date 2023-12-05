@@ -9,6 +9,7 @@ use App\Http\Requests\Doctor\UpdateDoctorRequest;
 use App\Http\Resources\Doctor\DoctorResource;
 use App\Services\Doctor\DoctorCreator;
 use App\Services\Doctor\DoctorGetter;
+use App\Services\Doctor\DoctorUpdater;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -58,16 +59,25 @@ class DoctorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDoctorRequest $request, string $id)
+    public function update(UpdateDoctorRequest $request,DoctorUpdater $doctorUpdater, string $id)
     {
-        //
+        $data = $request->all();
+        return $this->successResponse(
+            DoctorResource::make($doctorUpdater->update($id,$data)),
+            __('patient.create_success'),
+            Response::HTTP_CREATED
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(DoctorUpdater $doctorUpdater, string $id)
     {
-        //
+        return $this->successResponse(
+           $doctorUpdater->destroy($id),
+            __('Doctor Deleted Successfully!!'),
+            Response::HTTP_CREATED
+        );
     }
 }

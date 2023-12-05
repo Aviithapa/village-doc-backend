@@ -61,7 +61,7 @@ class DoctorCreator
                 'role_id' => $roleId,
                 'user_id'   => $userData->id
             ]);
-            Mail::to($doctor->email)->send(new AdminCreateUser($userData));
+            // Mail::to($doctor->email)->send(new AdminCreateUser($userData));
             
             DB::commit();
             return $doctor->refresh();

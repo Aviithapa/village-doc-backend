@@ -2,8 +2,10 @@
 
 namespace App\Services\Doctor;
 
-
+use App\Models\User;
 use App\Repositories\Doctor\DoctorRepository;
+use Exception;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
  * Class  DoctorUpdater
@@ -33,8 +35,14 @@ class DoctorUpdater
     public function update(int $id, array $data)
     {
         $doctor = $this->doctorRepository->findOrFail($id);
-        $this->doctorRepository->store($data);
-        return true;
+        try{
+            $doctorUpdate = $this->doctorRepository->update($doctor->id,$data);
+            $doctor =  $this->doctorRepository->find($id);
+            return $doctor;
+
+        }catch(Exception $e){
+            throw $e;
+        }
     }
 
 
@@ -44,7 +52,12 @@ class DoctorUpdater
      */
     public function destroy(int $id)
     {
+        $doctor = $this->doctorRepository->findOrFail($id);
+
+        User::where('email',$doctor->email)->update(['status'=>'in-active']);
+        
+        $this->doctorRepository->delete($id);
         //Todo: Delete doctor
-        return false;
+        return true;
     }
 }

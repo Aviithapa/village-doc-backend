@@ -5,9 +5,13 @@ namespace App\Http\Controllers\MedicalRecord;
 use App\Http\Controllers\Api\ApiResponser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MedicalRecord\CreateMedicalRecordRequest;
+use App\Http\Requests\MedicalRecord\MedicalRecordStatusRequest;
+use App\Http\Requests\MedicalRecord\UpdateMedicalRecordRequest;
+use App\Http\Resources\MedicalRecord\MedicalRecordListResource;
 use App\Http\Resources\MedicalRecord\MedicalRecordResource;
 use App\Services\MedicalRecord\MedicalRecordCreator;
 use App\Services\MedicalRecord\MedicalRecordGetter;
+use App\Services\MedicalRecord\MedicalRecordUpdater;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -26,7 +30,7 @@ class MedicalRecordController extends Controller
      */
     public function index(Request $request, MedicalRecordGetter $medicalRecordGetter): AnonymousResourceCollection
     {
-        return  MedicalRecordResource::collection($medicalRecordGetter->getPaginatedList($request));
+        return  MedicalRecordListResource::collection($medicalRecordGetter->getPaginatedList($request));
     }
 
 
@@ -34,12 +38,11 @@ class MedicalRecordController extends Controller
      * Store a newly created resource in storage.
      *  
      * @param CreateMedicalRecordRequest $request
-     * @param MedicalRecordCreator $labResu;tCreator
+     * @param MedicalRecordCreator $labResutCreator
      * @return JsonResponse
      */
     public function store(CreateMedicalRecordRequest $request, MedicalRecordCreator $medicalRecordCreator)
     {
-        //
         $data = $request->all();
         return $medicalRecordCreator->store($data);
     }
@@ -62,16 +65,28 @@ class MedicalRecordController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateMedicalRecordRequest $request,MedicalRecordUpdater $medicalRecordUpdater, string $id)
     {
-        //
+        $data = $request->all();
+        return $this->successResponse($medicalRecordUpdater->update($id,$data),"Medical Record Updated Successfully!!");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(MedicalRecordUpdater $medicalRecordUpdater,string $id)
     {
-        //
+        return $this->successResponse($medicalRecordUpdater->destroy($id),"Medical Record Deleted Successfully!!");
+    }
+
+    public function medicalRecordStatus(MedicalRecordStatusRequest $request,MedicalRecordCreator $medicalRecordCreator)
+    {
+        $data = $request->all();
+        $medicalRecordCreator->storeMedicalStatus($data);
+        return $this->successResponse(
+            $medicalRecordCreator->storeMedicalStatus($data),
+            __('Medical record status updated'),
+            Response::HTTP_CREATED
+        );
     }
 }
