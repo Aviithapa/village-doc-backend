@@ -11,6 +11,20 @@ class Appointment extends Model
 {
     use HasFactory, SoftDeletes, HasFilter;
 
+    const STATUS_QUERIED = "QUERIED";
+    const STATUS_SCHEDULED = "SCHEDULED";
+    const STATUS_COMPLETED = "COMPLETED";
+    const STATUS_CANCELED = "CANCELED";
+    const STATUS_RESCHEDULED = "RESCHEDULED";
+
+    const STATUS = [
+        self::STATUS_SCHEDULED,
+        self::STATUS_SCHEDULED,
+        self::STATUS_COMPLETED,
+        self::STATUS_CANCELED,
+        self::STATUS_RESCHEDULED
+    ];
+
     protected $fillable = [
         'patient_id',
         'doctor_id',

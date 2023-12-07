@@ -38,7 +38,7 @@ class MedicalRecordController extends Controller
      * Store a newly created resource in storage.
      *  
      * @param CreateMedicalRecordRequest $request
-     * @param MedicalRecordCreator $labResutCreator
+     * @param MedicalRecordCreator $medicalRecordCreator
      * @return JsonResponse
      */
     public function store(CreateMedicalRecordRequest $request, MedicalRecordCreator $medicalRecordCreator)
@@ -68,7 +68,7 @@ class MedicalRecordController extends Controller
     public function update(UpdateMedicalRecordRequest $request,MedicalRecordUpdater $medicalRecordUpdater, string $id)
     {
         $data = $request->all();
-        return $this->successResponse($medicalRecordUpdater->update($id,$data),"Medical Record Updated Successfully!!");
+        return $this->successResponse($medicalRecordUpdater->update($id,$data),__('global.medical.update_success'));
     }
 
     /**
@@ -76,7 +76,7 @@ class MedicalRecordController extends Controller
      */
     public function destroy(MedicalRecordUpdater $medicalRecordUpdater,string $id)
     {
-        return $this->successResponse($medicalRecordUpdater->destroy($id),"Medical Record Deleted Successfully!!");
+        return $this->successResponse($medicalRecordUpdater->destroy($id),__("global.medical.delete_success"));
     }
 
     public function medicalRecordStatus(MedicalRecordStatusRequest $request,MedicalRecordCreator $medicalRecordCreator)
@@ -85,7 +85,7 @@ class MedicalRecordController extends Controller
         $medicalRecordCreator->storeMedicalStatus($data);
         return $this->successResponse(
             $medicalRecordCreator->storeMedicalStatus($data),
-            __('Medical record status updated'),
+            __('global.medical.status_change_success'),
             Response::HTTP_CREATED
         );
     }

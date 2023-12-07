@@ -43,7 +43,7 @@ class AppointmentController extends Controller
 
         return $this->successResponse(
             AppointmentResource::make($appointmentCreator->store($data)),
-            __('patient.create_success'),
+            __('global.appointment.create_success'),
             Response::HTTP_CREATED
         );
     }
@@ -65,7 +65,7 @@ class AppointmentController extends Controller
         $data = $request->all();
         return $this->successResponse(
             AppointmentResource::make($appointmentUpdater->update($id, $data)),
-            __('Doctor Schedule updated successfully'),
+            __('global.appointment.create_success'),
             Response::HTTP_CREATED
         );
     }
