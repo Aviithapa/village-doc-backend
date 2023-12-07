@@ -3,6 +3,7 @@
 namespace App\Services\Appointment;
 
 use App\Http\Controllers\Api\ApiResponser;
+use App\Models\Appointment;
 use App\Repositories\Appointment\AppointmentRepository;
 use Exception;
 use Mockery\Expectation;
@@ -39,11 +40,24 @@ class AppointmentUpdater
     {
         $appointment = $this->appointmentRepository->findOrFail($id);
         try{
-            if($appointment->status === "queried" || $appointment->status === "scheduled"){
-                $appointmentUpdate = $this->appointmentRepository->update($appointment->id,$data);
-                $appointment =  $this->appointmentRepository->find($id);
-                return $appointment;
-            }
+            if($appointment->status === Appointment::STATUS_QUERIED || $appointment->status === Appointment::STATUS_SCHEDULED){
+                if($data['status'] === Appointment::STATUS_RESCHEDULED){
+                    $dataArray = [
+                        'status' => $data['status'],
+                        'reason' => $data['reason']
+                    ];
+                    $this->appointmentRepository->update($appointment->id,$dataArray);
+
+                    $data['status'] = Appointment::STATUS_SCHEDULED;
+                    $appointment = $this->appointmentRepository->store($data);
+                    return $appointment;
+
+                }else{
+                    $appointmentUpdate = $this->appointmentRepository->update($appointment->id,$data);
+                    $appointment =  $this->appointmentRepository->find($id);
+                    return $appointment;
+                }  
+            }     
             throw  new  BadRequestHttpException('Appointment Cannot be edited');          
 
         }catch(Exception $e){

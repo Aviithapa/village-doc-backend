@@ -39,7 +39,6 @@ class LabController extends Controller
      */
     public function store(CreateLabResultRequest $request, LabResultCreator $labResultCreator): JsonResponse
     {
-        //
         $data = $request->all();
 
         return $this->successResponse(
