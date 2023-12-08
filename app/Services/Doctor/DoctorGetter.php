@@ -15,11 +15,12 @@ use Illuminate\Support\Facades\DB;
  */
 class DoctorGetter
 {
-    /**
-     * @var DoctorRepository
-     */
     protected $doctorRepository;
     protected $appointmentGetter;
+
+    /**
+     * @var DoctorRepository
+    */
 
     /**
      * DoctorGetter constructor.

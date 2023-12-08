@@ -3,6 +3,8 @@
 use App\Http\Controllers\Allergies\AllergiesController;
 use App\Http\Controllers\Appointment\AppointmentController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Department\DepartmentController;
+use App\Http\Controllers\Department\DepartmentTestController;
 use App\Http\Controllers\Doctor\DoctorController;
 use App\Http\Controllers\Doctor\DoctorScheduleController;
 use App\Http\Controllers\LabResult\LabController;
@@ -45,3 +47,6 @@ Route::post('/lab-result/store', [LabController::class, 'store'])->middleware(['
 
 Route::post('/medication/bulk/store', [MedicationController::class, 'medicationBulkUpload'])->middleware(['auth:api'])->name('medication.bulk.upload');
 Route::post('/medication/store', [MedicationController::class, 'store'])->middleware(['auth:api'])->name('medication.store');
+
+Route::apiResource('/department',DepartmentController::class)->middleware(['auth:api']);
+Route::apiResource('/departmentTest',DepartmentTestController::class)->middleware(['auth:api']);
