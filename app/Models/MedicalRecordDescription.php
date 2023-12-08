@@ -20,7 +20,9 @@ class MedicalRecordDescription extends Model
         'reaction',
         'status',
         'prescription',
-        'consult_doctor'
+        'consult_doctor',
+        'created_by',
+        'updated_by'
     ];
 
     public function medical_records(): BelongsTo

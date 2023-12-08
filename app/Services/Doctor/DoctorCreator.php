@@ -44,7 +44,7 @@ class DoctorCreator
             DB::beginTransaction();
             $reference = Str::random(5) . rand(100, 999); 
             $password = bcrypt($reference);
-
+            $data['created_by'] = getAuthUser();
             $doctor =  $this->doctorRepository->store($data);
 
             $doctorArray = [

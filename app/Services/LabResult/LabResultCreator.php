@@ -44,7 +44,7 @@ class LabResultCreator
     {
         $response =  $this->fileUploader->upload($data['image'], "labReport");
         $response['type'] = Medias::TYPE_TEST_REPORT;
-
+        $data['created_by'] = getAuthUser();
         $labResult =  $this->labResultRepository->store($data);
         $response['patient_id'] = $data['patient_id'];
         $this->mediaRepository->store($response);

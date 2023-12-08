@@ -34,6 +34,7 @@ class MedicationCreator
      */
     public function store(array $data)
     {
+        $data['created_by'] = getAuthUser();
         $medication =  $this->medicationRepository->store($data);
         return $medication->refresh();
     }
@@ -44,6 +45,7 @@ class MedicationCreator
 
         foreach($medications as $key => $value){
             $medications[$key]['prescription_id'] = $data['prescription_id'];
+            $medications[$key]['created_by'] = getAuthUser();
         }
         $medications =  $this->medicationRepository->insert($medications);
         return $medications;

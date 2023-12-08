@@ -41,6 +41,7 @@ class AppointmentUpdater
         $appointment = $this->appointmentRepository->findOrFail($id);
         try{
             if($appointment->status === Appointment::STATUS_QUERIED || $appointment->status === Appointment::STATUS_SCHEDULED){
+                $data['updated_by'] = getAuthUser();
                 if($data['status'] === Appointment::STATUS_RESCHEDULED){
                     $dataArray = [
                         'status' => $data['status'],

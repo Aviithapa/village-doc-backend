@@ -54,6 +54,7 @@ class PatientsUpdater
                     $this->mediasRepository->store($response);
                 }
             }
+            $data['updated_by'] = getAuthUser();
             $patientUpdate = $this->patientsRepository->update($patient->id,$data);
             $patient =  $this->patientsRepository->find($id);
             return $patient;

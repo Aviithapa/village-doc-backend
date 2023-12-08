@@ -35,6 +35,7 @@ class AppointmentCreator
      */
     public function store(array $data)
     {
+        $data['created_by'] = getAuthUser();
         $appointment =  $this->appointmentRepository->store($data);
         $message = 'New Appointment has been created';
         broadcast(new AppointmentNotification($message))->toOthers();

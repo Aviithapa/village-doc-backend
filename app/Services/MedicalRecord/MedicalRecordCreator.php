@@ -50,7 +50,7 @@ class MedicalRecordCreator
         DB::beginTransaction();
 
         try {
-            $data['created_by'] = Auth::user()->id;
+            $data['created_by'] = getAuthUser();
             $medicalRecord = $this->medicalRecordRepository->store($data);
 
             $prescriptionData = [

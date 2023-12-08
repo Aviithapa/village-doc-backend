@@ -27,7 +27,13 @@ class DoctorScheduleRepository extends Repository
     public function getPaginatedList(Request $request, array $columns = array('*')): LengthAwarePaginator
     {
         $limit = $request->get('limit', config('app.per_page'));
+        $doctorId = $request->doctor_id;
         return $this->model->newQuery()
+            ->where('date',$request->date)
+            ->where(function ($query) use ($doctorId) {
+                if($doctorId)
+                    $query->where('doctor_id',$doctorId);
+            })
             ->latest()
             ->paginate($limit);
     }

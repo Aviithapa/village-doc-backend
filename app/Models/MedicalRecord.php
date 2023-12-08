@@ -37,7 +37,9 @@ class MedicalRecord extends Model
         'record_date',
         'notes',
         'diagnosis',
-        'status'
+        'status',
+        'created_by',
+        'updated_by'
     ];
 
     public function patient(): BelongsTo

@@ -33,6 +33,7 @@ class PrescriptionCreator
      */
     public function store(array $data)
     {
+        $data['created_by'] = getAuthUser();
         $prescription =  $this->prescriptionRepository->store($data);
         return $prescription->refresh();
     }

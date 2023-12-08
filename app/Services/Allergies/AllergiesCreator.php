@@ -45,6 +45,7 @@ class AllergiesCreator
                 'patient_id' => $patientId,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                'created_by'    => getAuthUser()
             ];
         }
         $allergies =  $this->allergiesRepository->insert($bulkInsertData);
