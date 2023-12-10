@@ -36,6 +36,7 @@ class DoctorUpdater
     {
         $doctor = $this->doctorRepository->findOrFail($id);
         try{
+            $data['created_by'] = getAuthUser();
             $doctorUpdate = $this->doctorRepository->update($doctor->id,$data);
             $doctor =  $this->doctorRepository->find($id);
             return $doctor;

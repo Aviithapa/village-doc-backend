@@ -39,7 +39,9 @@ class Medication extends Model
         'dosage',
         'quantity',
         'form',
-        'route'
+        'route',
+        'created_by',
+        'updated_by'
     ];
 
     public function prescription(): BelongsTo

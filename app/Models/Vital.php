@@ -18,7 +18,9 @@ class Vital extends Model
         'patient_id',
         'date_of_measurement',
         'name',
-        'measurement'
+        'measurement',
+        'created_by',
+        'updated_by'
     ];
 
     public function patient(): BelongsTo

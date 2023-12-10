@@ -22,7 +22,11 @@ class UserFilter extends BaseFilter
     public function keyword()
     {
         if ($this->request->has('keyword')) {
-            $this->builder->where('name', 'LIKE', '%' . $this->request->get('keyword') . '%');
+            $keyword = $this->request->get('keyword');
+            $this->builder->where(function ($query) use ($keyword) {
+                $query->where('username', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('email', 'LIKE', '%' . $keyword . '%');
+            });
         }
     }
 

@@ -152,3 +152,7 @@ if (!function_exists('getSupplierName')) {
             ->first();
     }
 }
+
+function getAuthUser(){
+    return Auth::user()->id;
+}

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Repositories\Appointment;
+namespace App\Repositories\MedicalRecord;
 
 use App\Infrastructure\Filters\BaseFilter;
 use Carbon\Carbon;
 
-class AppointmentFilter extends BaseFilter
+class MedicalRecordFilter extends BaseFilter
 {
     /**
      * Filter is allowed with following parameters.
@@ -80,4 +80,5 @@ class AppointmentFilter extends BaseFilter
             $this->builder->whereBetween('created_at', [$startDate, $endDate])->get();
         }
     }
+
 }

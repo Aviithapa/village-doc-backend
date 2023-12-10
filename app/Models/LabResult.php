@@ -21,6 +21,8 @@ class LabResult extends Model
         'notes',
         'test_name',
         'result',
+        'created_by',
+        'updated_by'
     ];
 
     public function patient(): BelongsTo

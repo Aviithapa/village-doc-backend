@@ -34,6 +34,8 @@ class Appointment extends Model
         'reason',
         'status',
         'urgent',
+        'created_by',
+        'updated_by'
     ];
 
     public function patient()
