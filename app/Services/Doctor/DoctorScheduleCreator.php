@@ -35,6 +35,7 @@ class DoctorScheduleCreator
      */
     public function store(array $data)
     {
+        $data['created_by'] = getAuthUser();
         $doctor =  $this->doctorScheduleRepository->store($data);
         return $doctor->refresh();
     }

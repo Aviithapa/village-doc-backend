@@ -16,7 +16,9 @@ class Allergies extends Model
     protected $fillable = [
         'patient_id',
         'allergen_name',
-        'reaction'
+        'reaction',
+        'created_by',
+        'updated_by'
     ];
 
     public function patient()

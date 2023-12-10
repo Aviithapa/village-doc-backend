@@ -35,7 +35,9 @@ class Patients extends Model
         'contact_number',
         'address',
         'uuid',
-        'ward_no'
+        'ward_no',
+        'created_by',
+        'updated_by'
     ];
 
     public function vitals(): HasMany

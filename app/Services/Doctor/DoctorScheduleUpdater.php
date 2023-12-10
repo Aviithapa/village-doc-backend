@@ -35,6 +35,7 @@ class DoctorScheduleUpdater
     {
         $schedule =  $this->doctorScheduleRepository->find($id);
         if ($schedule) {
+            $data['updated_by'] = getAuthUser();
             $scheduleUpdate = $this->doctorScheduleRepository->update($schedule->id,$data);
             if ($scheduleUpdate === false) {
                 return response()->json(['error' => 'Internal Error'], 500);

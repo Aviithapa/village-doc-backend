@@ -37,6 +37,7 @@ class MedicalRecordUpdater
     {
         $medicalRecord = $this->medicalRecordRepository->findOrFail($id);
         try{
+            $data['updated_by'] = getAuthUser();
             $medicalRecordUpdate = $this->medicalRecordRepository->update($medicalRecord->id,$data);
             $medicalRecord =  $this->medicalRecordRepository->find($id);
             return $medicalRecord;

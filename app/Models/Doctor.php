@@ -23,5 +23,7 @@ class Doctor extends Model
         'hiring_date',
         'email',
         'address',
+        'created_by',
+        'updated_by'
     ];
 }
