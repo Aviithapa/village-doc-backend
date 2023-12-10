@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ApiResponser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Appointment\CreateAppointmentRequest;
 use App\Http\Requests\Appointment\UpdateAppointmentRequest;
+use App\Http\Resources\Appointment\AppointmentListResource;
 use App\Http\Resources\Appointment\AppointmentResource;
 use App\Services\Appointment\AppointmentCreator;
 use App\Services\Appointment\AppointmentGetter;
@@ -26,7 +27,7 @@ class AppointmentController extends Controller
      */
     public function index(Request $request, AppointmentGetter $appointmentGetter): AnonymousResourceCollection
     {
-        return  AppointmentResource::collection($appointmentGetter->getPaginatedList($request));
+        return  AppointmentListResource::collection($appointmentGetter->getPaginatedList($request));
     }
 
 
