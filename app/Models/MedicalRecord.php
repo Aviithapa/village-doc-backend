@@ -66,4 +66,9 @@ class MedicalRecord extends Model
     {
         return $this->hasMany(Medias::class, 'medical_record_id', 'id');
     }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
 }
