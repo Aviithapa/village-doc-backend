@@ -79,7 +79,7 @@ class MedicalRecordController extends Controller
         return $this->successResponse($medicalRecordUpdater->destroy($id),__("global.medical.delete_success"));
     }
 
-    public function medicalRecordStatus(MedicalRecordStatusRequest $request,MedicalRecordCreator $medicalRecordCreator)
+    public function medicalRecordDescription(MedicalRecordStatusRequest $request,MedicalRecordCreator $medicalRecordCreator)
     {
         $data = $request->all();
         $medicalRecordCreator->storeMedicalStatus($data);

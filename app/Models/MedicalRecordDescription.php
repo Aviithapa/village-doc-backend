@@ -10,8 +10,14 @@ class MedicalRecordDescription extends Model
 {
     use HasFactory;
 
+    const STATUS_CONNECTED = "CONNECTED";
+    const STATUS_NOT_CONNECTED = "NOT CONNECTED";
+    const STATUS_THIRD_PERSON = "THIRD PERSON";
+
     const STATUS = [
-        'CONNECTED','NOT CONNECTED','THIRD PERSON'
+        self::STATUS_CONNECTED,
+        self::STATUS_NOT_CONNECTED,
+        self::STATUS_THIRD_PERSON
     ];
 
     protected $fillable = [

@@ -62,7 +62,6 @@ class PatientsController extends Controller
      */
     public function show(string $id, PatientsGetter $patientsGetter): JsonResponse
     {
-        //
         return  $this->successResponse(PatientsResource::make($patientsGetter->show($id)));
     }
 

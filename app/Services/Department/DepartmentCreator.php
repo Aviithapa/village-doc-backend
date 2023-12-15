@@ -12,17 +12,16 @@ use Illuminate\Support\Facades\DB;
  */
 class DepartmentCreator
 {
+    protected $departmentRepository;
     /**
      * @var DepartmentRepository
-     */
-    protected $departmentRepository;
+    */
 
 
     /**
      * DepartmentCreator constructor.
      * @param DepartmentRepository $departmentRepository
-
-     */
+    */
     public function __construct(DepartmentRepository $departmentRepository)
     {
         $this->departmentRepository = $departmentRepository;
