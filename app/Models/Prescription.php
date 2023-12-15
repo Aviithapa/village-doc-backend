@@ -31,5 +31,7 @@ class Prescription extends Model
         'suggested_treatment',
         'notes',
         'implement',
+        'provisional_diagnosis',
+        'examination'
     ];
 }

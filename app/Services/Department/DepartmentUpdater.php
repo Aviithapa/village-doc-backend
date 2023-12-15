@@ -12,11 +12,11 @@ use Illuminate\Support\Facades\DB;
  */
 class DepartmentUpdater
 {
+    protected $departmentRepository;
+    
     /**
      * @var DepartmentRepository
-     */
-    protected $departmentRepository;
-
+    */
 
     /**
      * DepartmentUpdater constructor.

@@ -19,7 +19,8 @@ class MedicalRecordListResource extends JsonResource
             "record_date"  => $this->record_date,
             'notes'  => $this->notes,
             'diagnosis' => $this->diagnosis,
-            'patient' => $this->patient
+            'patient' => $this->patient,
+            'hopi' => $this->hopi,
         ];
     }
 }

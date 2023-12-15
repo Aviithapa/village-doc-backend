@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\DB;
  */
 class DepartmentTestUpdater
 {
+    protected $departmentTestRepository;
     /**
      * @var DepartmentTestRepository
-     */
-    protected $departmentTestRepository;
+    */
 
 
     /**

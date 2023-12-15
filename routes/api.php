@@ -3,13 +3,18 @@
 use App\Http\Controllers\Allergies\AllergiesController;
 use App\Http\Controllers\Appointment\AppointmentController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Category\CategoryController;
+use App\Http\Controllers\Complaint\ComplaintController;
 use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\Department\DepartmentTestController;
 use App\Http\Controllers\Doctor\DoctorController;
 use App\Http\Controllers\Doctor\DoctorScheduleController;
 use App\Http\Controllers\LabResult\LabController;
+use App\Http\Controllers\MedicalRecord\MedicalRecordComplaintController;
 use App\Http\Controllers\MedicalRecord\MedicalRecordController;
+use App\Http\Controllers\MedicalRecord\PastMedicalHistoryController;
 use App\Http\Controllers\Medication\MedicationController;
+use App\Http\Controllers\Patients\InformantController;
 use App\Http\Controllers\Patients\PatientsController;
 use App\Http\Controllers\Vital\VitalController;
 use Illuminate\Support\Facades\Route;
@@ -50,3 +55,8 @@ Route::post('/medication/store', [MedicationController::class, 'store'])->middle
 
 Route::apiResource('/department',DepartmentController::class)->middleware(['auth:api']);
 Route::apiResource('/departmentTest',DepartmentTestController::class)->middleware(['auth:api']);
+Route::apiResource('/complaint',ComplaintController::class)->middleware(['auth:api']);
+Route::apiResource('/medical-record-complaint',MedicalRecordComplaintController::class)->middleware(['auth:api']);
+Route::apiResource('/category',CategoryController::class)->middleware(['auth:api']);
+Route::apiResource('/past-medical-history',PastMedicalHistoryController::class)->middleware(['auth:api']);
+Route::apiResource('/informant',InformantController::class)->middleware(['auth:api']);
