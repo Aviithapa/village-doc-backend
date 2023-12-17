@@ -62,10 +62,17 @@ class PatientsCreator
             $response['type'] = Medias::TYPE_PHOTO;
             $patients =  $this->patientsRepository->store($data);
             $response['patient_id'] = $patients->id;
+
+            // $checkFamilyHead = $this->checkFamilyHead();
             $this->mediaRepository->store($response);
             return $patients->refresh();
         }catch(Exception $e){
             throw $e;
         }
     }
+
+    // public function checkFamilyHead()
+    // {
+
+    // }
 }

@@ -21,10 +21,20 @@ class Patients extends Model
     const GENDER_FEMALE = 'FEMALE';
     const GENDER_OTHER = 'OTHER';
 
+    const MARITAL_STATUS_SINGLE = 'SINGLE';
+    const MARITAL_STATUS_MARRIED = 'MARRIED';
+    const MARITAL_STATUS_DIVORCED = 'DIVORCED';
+
     const GENDER = [
         self::GENDER_MALE,
         self::GENDER_FEMALE,
         self::GENDER_OTHER
+    ];
+
+    const MARITAL_STATUS = [
+        self::MARITAL_STATUS_SINGLE,
+        self::MARITAL_STATUS_MARRIED,
+        self::MARITAL_STATUS_DIVORCED
     ];
 
     protected $fillable = [
@@ -37,7 +47,14 @@ class Patients extends Model
         'uuid',
         'ward_no',
         'created_by',
-        'updated_by'
+        'updated_by',
+        'age',
+        'religion',
+        'marital_status',
+        'is_house_head',
+        'contact_no',
+        'househead_no',
+        'parent_id',
     ];
 
     public function vitals(): HasMany
@@ -73,5 +90,10 @@ class Patients extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+
+    public function familyMembers(): hasMany
+    {
+        return $this->hasMany(Patients::class,'patient_id','id');
     }
 }
