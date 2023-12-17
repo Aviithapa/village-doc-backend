@@ -40,7 +40,7 @@ class CreatePatientsRequest extends FormRequest
             'religion' => 'required|max:255',
             'is_house_head' => 'boolean',
             'contact_no' => 'required',
-            'househead_no' => 'sometimes|required',
+            'househead_no' => 'required',
         ];
     }
 }
