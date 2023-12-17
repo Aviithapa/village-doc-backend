@@ -39,7 +39,7 @@ class ComplaintCreator
         try{
             DB::beginTransaction();
 
-            $category = Category::whereIn('id',$data['category_id'])->first();
+            $category = Category::whereIn('id',$data['category_id'])->get();
             $complaint =  $this->complaintRepository->store($data);
             
             $complaint->category()->attach($category);

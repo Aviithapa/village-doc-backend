@@ -25,6 +25,7 @@ class CreatePatientsRequest extends FormRequest
     public function rules(): array
     {
         $genderRule = Rule::in(Patients::GENDER);
+        $maritalRule = Rule::in(Patients::MARITAL_STATUS);
         return [
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
@@ -33,7 +34,13 @@ class CreatePatientsRequest extends FormRequest
             'contact_number' => 'required|max:255',
             'address' => 'required',
             'images' => 'required',
-            'ward_no'   => 'required'
+            'ward_no'   => 'required',
+            'marital_status' => ['sometimes', 'required', 'max:255', $maritalRule],
+            'age' => 'required|integer',
+            'religion' => 'required|max:255',
+            'is_house_head' => 'boolean',
+            'contact_no' => 'required',
+            'househead_no' => 'required',
         ];
     }
 }

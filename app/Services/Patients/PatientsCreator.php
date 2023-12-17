@@ -56,16 +56,24 @@ class PatientsCreator
     public function store(array $data)
     {
         try{
+            // $checkFamilyHead = $this->checkFamilyHead($data);
             $data['created_by'] = getAuthUser();
             $data['uuid'] = Str::uuid()->toString();
             $response =  $this->fileUploader->uploadBase64($data['images'], "photos");
             $response['type'] = Medias::TYPE_PHOTO;
             $patients =  $this->patientsRepository->store($data);
             $response['patient_id'] = $patients->id;
+
             $this->mediaRepository->store($response);
             return $patients->refresh();
         }catch(Exception $e){
             throw $e;
         }
+    }
+
+    public function checkFamilyHead($data)
+    {
+        $getData  = $this->patientsRepository->findBy('contact_no',$data['househead_no']);
+        dd($getData);
     }
 }

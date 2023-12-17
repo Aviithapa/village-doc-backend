@@ -29,6 +29,7 @@ class PatientsResource extends JsonResource
             'latest_visit' => $this->latestMedicalRecord,
             'allergies' => $this->allergies,
             'medias' => $this->medias,
+            'family_details' => $this->familyMembers
         ];
     }
 }
