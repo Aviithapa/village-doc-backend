@@ -36,6 +36,11 @@ class PatientsResource extends JsonResource
             'insurance_no' => $this->insurance_no,
             'nid_no' => $this->nid_no,
             'blood_group' => $this->blood_group,
+            'province' => isset($this->province) ? $this->province->name : '',
+            'district' => isset($this->district) ? $this->district->name : '',
+            'municipality' => isset($this->municipality) ? $this->municipality->name : '',
+            'patientNumber' => $this->province->id . '-' . $this->district->id . '-' . $this->municipality->id . '-' . $this->id
+
         ];
     }
 }
