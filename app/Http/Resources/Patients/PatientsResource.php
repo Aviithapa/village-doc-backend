@@ -30,8 +30,12 @@ class PatientsResource extends JsonResource
             'medical_records' => MedicalRecordResource::collection($this->medicalRecords),
             'latest_visit' => $this->latestMedicalRecord,
             'allergies' => $this->allergies,
-            'medias' => $this->medias,
-            'family_details' => $this->familyMembers
+            'medias' => $this->medias[0]->path,
+            'family_details' => $this->familyMembers,
+            'citizenship_no' => $this->citizenship_no,
+            'insurance_no' => $this->insurance_no,
+            'nid_no' => $this->nid_no,
+            'blood_group' => $this->blood_group,
         ];
     }
 }

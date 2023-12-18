@@ -41,6 +41,7 @@ class CreatePatientsRequest extends FormRequest
             'is_house_head' => 'boolean',
             'contact_no' => 'required',
             'househead_no' => 'required',
+            'citizenship_no' => 'required'
         ];
     }
 }
