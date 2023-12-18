@@ -25,6 +25,7 @@ class PatientsResource extends JsonResource
             'address' => $this->address,
             'vitals' => $this->vitals,
             'uuid' => $this->uuid,
+            'is_house_head' => $this->is_house_head,
             'age' => $this->age,
             'ward_no' => $this->ward_no,
             'medical_records' => MedicalRecordResource::collection($this->medicalRecords),
