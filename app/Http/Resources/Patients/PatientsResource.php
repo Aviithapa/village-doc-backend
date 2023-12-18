@@ -39,7 +39,7 @@ class PatientsResource extends JsonResource
             'province' => isset($this->province) ? $this->province->name : '',
             'district' => isset($this->district) ? $this->district->name : '',
             'municipality' => isset($this->municipality) ? $this->municipality->name : '',
-            'patientNumber' => $this->province->id . '-' . $this->district->id . '-' . $this->municipality->id . '-' . $this->id
+            'patientNumber' => (isset($this->province->id) ? $this->province->id: '00') . '-' . (isset($this->district->id) ? $this->district->id: '00') . '-' . (isset($this->municipality->id) ? $this->municipality->id: '00') . '-' . $this->id
 
         ];
     }
