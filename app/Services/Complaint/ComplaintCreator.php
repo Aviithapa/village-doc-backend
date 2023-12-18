@@ -36,17 +36,16 @@ class ComplaintCreator
      */
     public function store(array $data)
     {
-        try{
+        try {
             DB::beginTransaction();
 
-            $category = Category::whereIn('id',$data['category_id'])->get();
+            $category = Category::whereIn('id', $data['category_id'])->get();
             $complaint =  $this->complaintRepository->store($data);
-            
+
             $complaint->category()->attach($category);
             DB::commit();
             return $complaint->refresh();
-
-        }catch(Exception $e){
+        } catch (Exception $e) {
             DB::rollBack();
             throw $e;
         }

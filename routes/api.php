@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Address\AddressController;
 use App\Http\Controllers\Allergies\AllergiesController;
 use App\Http\Controllers\Appointment\AppointmentController;
 use App\Http\Controllers\Auth\AuthController;
@@ -53,10 +54,15 @@ Route::post('/lab-result/store', [LabController::class, 'store'])->middleware(['
 Route::post('/medication/bulk/store', [MedicationController::class, 'medicationBulkUpload'])->middleware(['auth:api'])->name('medication.bulk.upload');
 Route::post('/medication/store', [MedicationController::class, 'store'])->middleware(['auth:api'])->name('medication.store');
 
-Route::apiResource('/department',DepartmentController::class)->middleware(['auth:api']);
-Route::apiResource('/departmentTest',DepartmentTestController::class)->middleware(['auth:api']);
-Route::apiResource('/complaint',ComplaintController::class)->middleware(['auth:api']);
-Route::apiResource('/medical-record-complaint',MedicalRecordComplaintController::class)->middleware(['auth:api']);
-Route::apiResource('/category',CategoryController::class)->middleware(['auth:api']);
-Route::apiResource('/past-medical-history',PastMedicalHistoryController::class)->middleware(['auth:api']);
-Route::apiResource('/informant',InformantController::class)->middleware(['auth:api']);
+Route::apiResource('/department', DepartmentController::class)->middleware(['auth:api']);
+Route::apiResource('/departmentTest', DepartmentTestController::class)->middleware(['auth:api']);
+Route::apiResource('/complaint', ComplaintController::class)->middleware(['auth:api']);
+Route::apiResource('/medical-record-complaint', MedicalRecordComplaintController::class)->middleware(['auth:api']);
+Route::apiResource('/category', CategoryController::class)->middleware(['auth:api']);
+Route::apiResource('/past-medical-history', PastMedicalHistoryController::class)->middleware(['auth:api']);
+Route::apiResource('/informant', InformantController::class)->middleware(['auth:api']);
+
+
+
+Route::get('/family-head/{household_no}', [PatientsController::class, 'showFamilyHead'])->name('patient.family-head');
+Route::get('/address', [AddressController::class, 'index'])->name('address.index');

@@ -73,4 +73,9 @@ class PatientsGetter
 
         return $data;
     }
+
+    public function showFamilyHead($househead_no)
+    {
+        return $this->patientsRepository->all()->where('househead_no', $househead_no)->where('is_house_head', 1)->first();
+    }
 }

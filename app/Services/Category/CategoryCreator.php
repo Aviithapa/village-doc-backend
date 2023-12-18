@@ -36,13 +36,12 @@ class CategoryCreator
      */
     public function store(array $data)
     {
-        try{
+        try {
             DB::beginTransaction();
             $category =  $this->categoryRepository->store($data);
             DB::commit();
             return $category->refresh();
-
-        }catch(Exception $e){
+        } catch (Exception $e) {
             DB::rollBack();
             throw $e;
         }

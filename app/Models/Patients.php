@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use App\Infrastructure\Traits\HasFilter;
+use App\Models\Province\District;
+use App\Models\Province\Municipality;
+use App\Models\Province\Province;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -55,6 +57,10 @@ class Patients extends Model
         'contact_no',
         'househead_no',
         'parent_id',
+        'province_id',
+        'district_id',
+        'municipality_id',
+
     ];
 
     public function vitals(): HasMany
@@ -94,6 +100,21 @@ class Patients extends Model
 
     public function familyMembers(): hasMany
     {
-        return $this->hasMany(Patients::class,'patient_id','id');
+        return $this->hasMany(Patients::class, 'patient_id', 'id');
+    }
+
+    public function province(): BelongsTo
+    {
+        return $this->belongsTo(Province::class);
+    }
+
+    public function district(): BelongsTo
+    {
+        return $this->belongsTo(District::class);
+    }
+
+    public function municipality(): BelongsTo
+    {
+        return $this->belongsTo(Municipality::class);
     }
 }

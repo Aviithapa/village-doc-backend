@@ -68,11 +68,11 @@ class PatientsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePatientsRequest $request,PatientsUpdater $patientsUpdater, string $id)
+    public function update(UpdatePatientsRequest $request, PatientsUpdater $patientsUpdater, string $id)
     {
         $data = $request->all();
         return $this->successResponse(
-            PatientsResource::make($patientsUpdater->update($id,$data)),
+            PatientsResource::make($patientsUpdater->update($id, $data)),
             __('patient.create_success'),
             Response::HTTP_CREATED
         );
@@ -85,9 +85,9 @@ class PatientsController extends Controller
     {
         return $this->successResponse(
             $patientsUpdater->destroy($id),
-             __('Patient Deleted Successfully!!'),
-             Response::HTTP_CREATED
-         );
+            __('Patient Deleted Successfully!!'),
+            Response::HTTP_CREATED
+        );
     }
 
 
@@ -113,5 +113,10 @@ class PatientsController extends Controller
     {
         $data = $patientsGetter->patientsDetails($uuid);
         return  $this->successResponse($data);
+    }
+
+    public function showFamilyHead($household_no, PatientsGetter $patientsGetter): JsonResponse
+    {
+        return  $this->successResponse(PatientsResource::make($patientsGetter->showFamilyHead($household_no)));
     }
 }

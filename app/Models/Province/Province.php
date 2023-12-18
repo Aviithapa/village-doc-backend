@@ -2,6 +2,7 @@
 
 namespace App\Models\Province;
 
+use App\Models\Patients;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -19,5 +20,10 @@ class Province extends Model
     public function districts()
     {
         return $this->hasMany(District::class);
+    }
+
+    public function patient()
+    {
+        return $this->belongsTo(Patients::class);
     }
 }
