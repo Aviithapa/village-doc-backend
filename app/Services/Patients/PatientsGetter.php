@@ -59,6 +59,10 @@ class PatientsGetter
     {
         $patient =  Patients::where('uuid', $uuid)->firstOrFail();
 
+        if (!$patient->is_house_head) {
+            $patient = Patients::where('is_house_head', true)->where('id', $patient->patient_id)->firstOrFail();
+        }
+
         $factory = JWTFactory::customClaims([
             'sub'   => $patient->uuid
         ]);
