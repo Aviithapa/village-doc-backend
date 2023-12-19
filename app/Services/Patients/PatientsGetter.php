@@ -82,4 +82,15 @@ class PatientsGetter
     {
         return $this->patientsRepository->all()->where('househead_no', $househead_no)->where('is_house_head', 1)->first();
     }
+
+    public function getFamilyHeadDetail($id)
+    {
+        $patient = $this->patientsRepository->find($id);
+
+        if (!$patient->is_house_head) {
+            $patient = Patients::where('is_house_head', true)->where('id', $patient->patient_id)->firstOrFail();
+        }
+
+        return $patient;
+    }
 }
