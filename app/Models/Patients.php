@@ -60,7 +60,10 @@ class Patients extends Model
         'province_id',
         'district_id',
         'municipality_id',
-
+        'blood_group',
+        'citizenship_no',
+        'insurance_no',
+        'nid_no',
     ];
 
     public function vitals(): HasMany
