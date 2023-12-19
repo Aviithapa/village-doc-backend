@@ -39,7 +39,13 @@ class UpdatePatientsRequest extends FormRequest
             'is_house_head' => 'boolean',
             'contact_no' => 'required',
             'househead_no' => 'required',
-            'citizenship_no' => 'required'
+            'citizenship_no' => 'sometimes|required',
+            'blood_group' => 'sometimes|required',
+            'insurance_no' => 'sometimes|required',
+            'nid_no' => 'sometimes|required',
+            'province_id' => 'required',
+            'district_id' => 'required',
+            'municipality_id' => 'required',
         ];
     }
 }

@@ -66,3 +66,5 @@ Route::apiResource('/informant', InformantController::class)->middleware(['auth:
 
 Route::get('/family-head/{household_no}', [PatientsController::class, 'showFamilyHead'])->name('patient.family-head');
 Route::get('/address', [AddressController::class, 'index'])->name('address.index');
+
+Route::get('patients/familyDetails/{id}',[PatientsController::class,'getFamilyDetail'])->name('patient.familyhead.detail');
