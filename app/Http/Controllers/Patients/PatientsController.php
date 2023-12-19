@@ -48,7 +48,7 @@ class PatientsController extends Controller
         $data = $request->all();
         return $this->successResponse(
             PatientsResource::make($patientsCreator->store($data)),
-            __('patient.create_success'),
+            __('global.patient.create_success'),
             Response::HTTP_CREATED
         );
     }
@@ -118,5 +118,10 @@ class PatientsController extends Controller
     public function showFamilyHead($household_no, PatientsGetter $patientsGetter): JsonResponse
     {
         return  $this->successResponse(PatientsResource::make($patientsGetter->showFamilyHead($household_no)));
+    }
+
+    public function getFamilyHeadDetail(int $id, PatientsGetter $patientsGetter): JsonResponse
+    {
+        return  $this->successResponse(PatientsResource::make($patientsGetter->getFamilyHeadDetail($id)));
     }
 }

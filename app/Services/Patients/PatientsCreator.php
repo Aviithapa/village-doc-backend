@@ -62,12 +62,13 @@ class PatientsCreator
                 $data['patient_id'] = $checkFamilyHead->id;
             $data['created_by'] = getAuthUser();
             $data['uuid'] = Str::uuid()->toString();
-            $response =  $this->fileUploader->uploadBase64($data['images'], "photos");
-            $response['type'] = Medias::TYPE_PHOTO;
             $patients =  $this->patientsRepository->store($data);
-            $response['patient_id'] = $patients->id;
-
-            $this->mediaRepository->store($response);
+            if(isset($data['images'])){
+                $response =  $this->fileUploader->uploadBase64($data['images'], "photos");
+                $response['type'] = Medias::TYPE_PHOTO;
+                $response['patient_id'] = $patients->id;
+                $this->mediaRepository->store($response);
+            }
             return $patients->refresh();
         } catch (Exception $e) {
             throw $e;
@@ -78,6 +79,5 @@ class PatientsCreator
     {
         $getData  = $this->patientsRepository->all()->where('contact_no', $data['househead_no'])->where('is_house_head', 1)->first();
         return $getData;
-        // dd($getData);
     }
 }

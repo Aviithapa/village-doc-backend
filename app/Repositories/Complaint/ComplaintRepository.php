@@ -28,6 +28,7 @@ class ComplaintRepository extends Repository
     {
         $limit = $request->get('limit', config('app.per_page'));
         return $this->model->newQuery()
+            ->filter(new ComplaintFilter($request))
             ->latest()
             ->paginate($limit);
     }
