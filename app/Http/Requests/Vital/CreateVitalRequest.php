@@ -22,11 +22,12 @@ class CreateVitalRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'vitals' => 'required|array',
-            'vitals.*.name' => 'required|string',
-            'vitals.*.measurement' => 'required|string',
-            'date_of_measurement' => 'sometimes|required|date|date_format:Y-m-d',
-            'patient_id' => 'required|exists:patients,id',
+            'medical_record_id' => 'required|exists:medical_records,id,deleted_at,NULL',
+            'blood_pressure' => 'sometimes|required',
+            'pulse' => 'sometimes|required',
+            'temperature' => 'sometimes|required',
+            'respiration' => 'sometimes|required',
+            'saturation' => 'sometimes|required',
         ];
     }
 }

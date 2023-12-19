@@ -60,7 +60,7 @@ class PatientsCreator
             DB::beginTransaction();
             $checkFamilyHead = $this->checkFamilyHead($data);
             if ($checkFamilyHead){
-                $data['patient_id'] = $checkFamilyHead->id;
+                $data['patient_id'] = $checkFamilyHead;
                 $data['is_house_head'] = 0;
             }
             $data['created_by'] = getAuthUser();

@@ -32,21 +32,7 @@ class PatientsResource extends JsonResource
             'latest_visit' => $this->latestMedicalRecord,
             'allergies' => $this->allergies,
             'medias' => $this->medias[0]->path??"",
-            'family_details' => $this->familyMembers->map(function ($familyMember) {
-                return [
-                    'id' => $familyMember->id,
-                    'first_name' => $familyMember->first_name,
-                    'last_name' => $familyMember->last_name,
-                    'date_of_birth' => $familyMember->date_of_birth,
-                    'gender' => $familyMember->gender,
-                    'contact_number' => $familyMember->contact_number,
-                    'address' => $familyMember->address,
-                    'age' => $familyMember->age,
-                    'patient_id' => $familyMember->patient_id,
-                    'citizenship_no' => $familyMember->citizenship_no,
-                    'uuid' => $familyMember->uuid,
-                ];
-            }),
+            'family_details' => PatientFamilyResource::collection($this->familyMembers),
             'citizenship_no' => $this->citizenship_no,
             'insurance_no' => $this->insurance_no,
             'nid_no' => $this->nid_no,

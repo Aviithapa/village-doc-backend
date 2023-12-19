@@ -37,24 +37,7 @@ class VitalCreator
      */
     public function store(array $data)
     {
-        $vitals = $data['vitals'];
-        $dateOfMeasurement = $data['date_of_measurement'];
-        $patientId = $data['patient_id'];
-
-        $bulkInsertData = [];
-
-        foreach ($vitals as $vital) {
-            $bulkInsertData[] = [
-                'name' => $vital['name'],
-                'measurement' => $vital['measurement'],
-                'date_of_measurement' => $dateOfMeasurement,
-                'patient_id' => $patientId,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-                'created_by' => getAuthUser()
-            ];
-        }
-        $vital =  $this->vitalRepository->insert($bulkInsertData);
+        $vital =  $this->vitalRepository->store($data);
         return $vital;
     }
 }
