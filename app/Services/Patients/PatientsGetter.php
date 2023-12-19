@@ -2,7 +2,7 @@
 
 namespace App\Services\Patients;
 
-use App\Http\Resources\Patients\PatientsResource;
+use App\Http\Resources\Patients\PatientFamilyResource;
 use App\Models\Patients;
 use Illuminate\Http\Request;
 use App\Repositories\Patients\PatientsRepository;
@@ -72,7 +72,7 @@ class PatientsGetter
 
         $data = [
             'access_token' => $token,
-            'patient_details' => PatientsResource::make($patient)
+            'patient_details' => PatientFamilyResource::make($patient)
         ];
 
         return $data;
