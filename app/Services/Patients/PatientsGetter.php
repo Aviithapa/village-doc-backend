@@ -8,6 +8,7 @@ use App\Models\Patients;
 use Illuminate\Http\Request;
 use App\Repositories\Patients\PatientsRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Facades\JWTFactory;
 
@@ -93,5 +94,24 @@ class PatientsGetter
         }
 
         return $patient;
+    }
+
+    public function validatePatient($data)
+    {
+        $patientDetail = $this->patientsRepository->find($data['patient_id']);
+
+        $familyHeadUUID = JWTAuth::parseToken()->getPayload()->get('sub');
+
+        $familyHeadID = Patients::where('uuid',$familyHeadUUID)->pluck('id')->first();
+        if($patientDetail->patient_id && $patientDetail->is_house_head === 0)
+        {
+            if($patientDetail->patient_id == $familyHeadID)
+                return $patientDetail;
+
+        }elseif($patientDetail->id == $familyHeadID){
+            return $patientDetail;
+        }else{
+            throw  new  BadRequestHttpException('Patient Doesnot belong to the family in our record.');          
+        }
     }
 }

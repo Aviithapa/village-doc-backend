@@ -66,11 +66,6 @@ class Patients extends Model
         'nid_no',
     ];
 
-    public function vitals(): HasMany
-    {
-        return $this->hasMany(Vital::class, 'patient_id', 'id');
-    }
-
     public function allergies(): HasMany
     {
         return $this->hasMany(Allergies::class, 'patient_id', 'id');
