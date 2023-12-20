@@ -2,6 +2,7 @@
 
 namespace App\Services\Patients;
 
+use App\Http\Resources\Patients\PatientFamilyResource;
 use App\Http\Resources\Patients\PatientsResource;
 use App\Models\Patients;
 use Illuminate\Http\Request;

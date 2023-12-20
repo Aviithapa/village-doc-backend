@@ -15,16 +15,18 @@ class Vital extends Model
     use HasFilter;
 
     protected $fillable = [
-        'patient_id',
-        'date_of_measurement',
-        'name',
-        'measurement',
+        'medical_record_id',
+        'blood_pressure',
+        'pulse',
+        'temperature',
+        'respiration',
+        'saturation',
         'created_by',
         'updated_by'
     ];
 
-    public function patient(): BelongsTo
+    public function medical_records() : BelongsTo
     {
-        return $this->belongsTo(Patient::class, 'patient_id', 'id');
+        return $this->belongsTo(MedicalRecord::class,'medical_record_id','id');
     }
 }

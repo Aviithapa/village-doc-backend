@@ -42,7 +42,7 @@ class VitalController extends Controller
 
         return $this->successResponse(
             $vitalCreator->store($data),
-            __('patient.create_success'),
+            __('global.vitals.create_success'),
             Response::HTTP_CREATED
         );
     }

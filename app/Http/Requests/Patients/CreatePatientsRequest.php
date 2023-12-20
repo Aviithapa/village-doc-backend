@@ -33,7 +33,7 @@ class CreatePatientsRequest extends FormRequest
             'gender' => ['sometimes', 'required', 'max:255', $genderRule],
             'contact_number' => 'required|max:255',
             'address' => 'required',
-            'images' => 'required|sometimes',
+            'images' => 'sometimes|required',
             'ward_no'   => 'required',
             'marital_status' => ['sometimes', 'required', 'max:255', $maritalRule],
             'age' => 'required|integer',

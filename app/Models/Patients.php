@@ -56,7 +56,7 @@ class Patients extends Model
         'is_house_head',
         'contact_no',
         'househead_no',
-        'parent_id',
+        'patient_id',
         'province_id',
         'district_id',
         'municipality_id',

@@ -62,4 +62,10 @@ return [
         'update_success' => 'Past Medical History updated successfully.',
         'delete_success' => 'Past Medical History has been deleted.',
     ],
+    'vitals' => 
+    [
+        'create_success' => 'Vitals created successfully.',
+        'update_success' => 'Vitals updated successfully.',
+        'delete_success' => 'Vitals has been deleted.',
+    ],
 ];
