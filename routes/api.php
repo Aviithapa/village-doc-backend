@@ -68,3 +68,4 @@ Route::get('/family-head/{household_no}', [PatientsController::class, 'showFamil
 Route::get('/address', [AddressController::class, 'index'])->name('address.index');
 
 Route::get('patients/familyDetails/{id}',[PatientsController::class,'getFamilyDetail'])->name('patient.familyhead.detail');
+Route::get('patient/validatePatient',[PatientsController::class,'validatePatient'])->name('patient.validate');
