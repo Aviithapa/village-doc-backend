@@ -57,8 +57,6 @@ class MedicalRecordController extends Controller
     public function show(string $id, MedicalRecordGetter $MedicalRecordGetter): JsonResponse
     {
         $medicalRecord = MedicalRecordResource::make($MedicalRecordGetter->show($id));
-        $vitals = $medicalRecord->patient->vitals->groupBy('created_at');
-        $medicalRecord->patient->vitals = $vitals;
         return  $this->successResponse($medicalRecord);
     }
 

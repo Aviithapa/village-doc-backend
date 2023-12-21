@@ -13,13 +13,15 @@ class Medias extends Model
 
     const TYPE_PHOTO = 'PHOTO';
     const TYPE_TEST_REPORT = 'TEST_REPORT';
+    const TYPE_SIGNATURE = 'SIGNATURE';
     const TYPE_OTHER = 'OTHER';
 
 
     const TYPES = [
         self::TYPE_PHOTO,
         self::TYPE_TEST_REPORT,
-        self::TYPE_OTHER
+        self::TYPE_SIGNATURE,
+        self::TYPE_OTHER,
     ];
 
     protected $table = 'medias';

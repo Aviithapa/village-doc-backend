@@ -204,6 +204,7 @@ return [
         Spatie\Backup\BackupServiceProvider::class,
         Spatie\Geocoder\GeocoderServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
 
     ],
 
@@ -222,6 +223,7 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Geocoder' => Spatie\Geocoder\Facades\Geocoder::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
     ])->toArray(),
 
 ];

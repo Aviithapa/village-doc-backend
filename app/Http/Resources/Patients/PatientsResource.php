@@ -25,6 +25,7 @@ class PatientsResource extends JsonResource
             'address' => $this->address,
             'uuid' => $this->uuid,
             'is_house_head' => $this->is_house_head,
+            'religion' => $this->religion,
             'age' => $this->age,
             'ward_no' => $this->ward_no,
             'medical_records' => MedicalRecordResource::collection($this->medicalRecords),
@@ -39,8 +40,8 @@ class PatientsResource extends JsonResource
             'province' => isset($this->province) ? $this->province->name : '',
             'district' => isset($this->district) ? $this->district->name : '',
             'municipality' => isset($this->municipality) ? $this->municipality->name : '',
-            'patientNumber' => (isset($this->province->id) ? $this->province->id: '00') . '-' . (isset($this->district->id) ? $this->district->id: '00') . '-' . (isset($this->municipality->id) ? $this->municipality->id: '00') . '-' . $this->id
-
+            'patientNumber' => (isset($this->province->id) ? $this->province->id: '00') . '-' . (isset($this->district->id) ? $this->district->id: '00') . '-' . (isset($this->municipality->id) ? $this->municipality->id: '00') . '-' . $this->id,
+            'qrCode' => $this->qrCode,
         ];
     }
 }

@@ -20,7 +20,7 @@ class MedicalRecordResource extends JsonResource
             'notes'  => $this->notes,
             'diagnosis' => $this->diagnosis,
             'patient' => $this->patient,
-            'vitals' => $this->patient->vitals,
+            'vitals' => $this->vitals,
             'medias' => $this->patient->medias,
             'prescription' => $this->prescription,
             'appointment' => $this->appointment,
