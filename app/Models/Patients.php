@@ -54,7 +54,6 @@ class Patients extends Model
         'religion',
         'marital_status',
         'is_house_head',
-        'contact_no',
         'househead_no',
         'patient_id',
         'province_id',
@@ -64,6 +63,7 @@ class Patients extends Model
         'citizenship_no',
         'insurance_no',
         'nid_no',
+        'relationship',
     ];
 
     public function allergies(): HasMany

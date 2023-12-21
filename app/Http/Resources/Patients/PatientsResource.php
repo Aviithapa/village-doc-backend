@@ -28,6 +28,7 @@ class PatientsResource extends JsonResource
             'religion' => $this->religion,
             'age' => $this->age,
             'ward_no' => $this->ward_no,
+            'marital_status' => $this->marital_status,
             'medical_records' => MedicalRecordResource::collection($this->medicalRecords),
             'latest_visit' => $this->latestMedicalRecord,
             'allergies' => $this->allergies,
@@ -41,7 +42,9 @@ class PatientsResource extends JsonResource
             'district' => isset($this->district) ? $this->district->name : '',
             'municipality' => isset($this->municipality) ? $this->municipality->name : '',
             'patientNumber' => (isset($this->province->id) ? $this->province->id: '00') . '-' . (isset($this->district->id) ? $this->district->id: '00') . '-' . (isset($this->municipality->id) ? $this->municipality->id: '00') . '-' . $this->id,
+            'full_address' => (isset($this->province->name) ? $this->province->name: '00') . '-' . (isset($this->district->name) ? $this->district->name: '00') . '-' . (isset($this->municipality->name) ? $this->municipality->name: '00') . '-' . $this->address,
             'qrCode' => $this->qrCode,
+            'relationship' => $this->relationship
         ];
     }
 }

@@ -83,7 +83,7 @@ class PatientsCreator
 
     public function checkFamilyHead($data)
     {
-        $getData  = $this->patientsRepository->all()->where('contact_no', $data['househead_no'])->where('is_house_head', 1)->pluck('id')->first();
+        $getData  = $this->patientsRepository->all()->where('contact_number', $data['househead_no'])->where('is_house_head', 1)->pluck('id')->first();
         return $getData;
     }
 }
