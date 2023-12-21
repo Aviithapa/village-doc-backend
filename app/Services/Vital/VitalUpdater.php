@@ -4,6 +4,7 @@ namespace App\Services\Vital;
 
 
 use App\Repositories\Vital\VitalRepository;
+use Exception;
 
 /**
  * Class  VitalUpdater
@@ -34,9 +35,16 @@ class VitalUpdater
      */
     public function update(int $id, array $data)
     {
-        $vital = $this->vitalRepository->findOrFail($id);
-        $this->vitalRepository->store($data);
-        return true;
+        $vitals = $this->vitalRepository->findOrFail($id);
+        try{
+            $data['updated_by'] = getAuthUser();
+            $vitalUpdate = $this->vitalRepository->update($vitals->id,$data);
+            $vitals =  $this->vitalRepository->find($id);
+            return $vitals;
+
+        }catch(Exception $e){
+            throw $e;
+        }
     }
 
 
@@ -46,7 +54,7 @@ class VitalUpdater
      */
     public function destroy(int $id)
     {
-        //Todo: Delete vital
-        return false;
+        $this->vitalRepository->delete($id);
+        return true;
     }
 }

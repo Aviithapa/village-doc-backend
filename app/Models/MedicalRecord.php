@@ -50,7 +50,7 @@ class MedicalRecord extends Model
 
     public function vitals(): HasMany
     {
-        return $this->hasMany(Vital::class, 'patient_id', 'id');
+        return $this->hasMany(Vital::class, 'medical_record_id', 'id');
     }
 
     public function prescription(): HasMany

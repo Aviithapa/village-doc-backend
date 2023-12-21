@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Vital;
 use App\Http\Controllers\Api\ApiResponser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Vital\CreateVitalRequest;
+use App\Http\Requests\Vital\UpdateVitalRequest;
 use App\Http\Resources\Vital\VitalResource;
 use App\Services\Vital\VitalCreator;
 use App\Services\Vital\VitalGetter;
+use App\Services\Vital\VitalUpdater;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -56,7 +58,6 @@ class VitalController extends Controller
      */
     public function show(string $id, VitalGetter $vitalGetter): JsonResponse
     {
-        //
         return  $this->successResponse(VitalResource::make($vitalGetter->show($id)));
     }
 
@@ -64,16 +65,17 @@ class VitalController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateVitalRequest $request, int $id,VitalUpdater $vitalUpdater)
     {
-        //
+        $data = $request->all();
+        return $this->successResponse($vitalUpdater->update($id,$data),__('global.vitals.update_success'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $id,VitalUpdater $vitalUpdater)
     {
-        //
+        return $this->successResponse($vitalUpdater->destroy($id),__("global.vitals.delete_success"));
     }
 }
