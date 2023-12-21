@@ -121,6 +121,6 @@ class PatientsGetter
     public function generateQR($uuid)
     {
         $generatedURL = "https://village-doc-frontend.vercel.app/patient/".$uuid;
-        return response(QrCode::generate($generatedURL));
+        return response(QrCode::size(200)->generate($generatedURL));
     }
 }
