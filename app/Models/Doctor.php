@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Infrastructure\Traits\HasFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Doctor extends Model
@@ -26,4 +27,9 @@ class Doctor extends Model
         'created_by',
         'updated_by'
     ];
+
+    public function signature() : HasOne
+    {
+        return $this->hasOne(Medias::class,'doctor_id','id');
+    }
 }

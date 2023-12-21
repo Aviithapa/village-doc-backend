@@ -49,6 +49,7 @@ Route::get('/doctors/list', [DoctorController::class, 'doctorList'])->middleware
 Route::get('/patient/select', [PatientsController::class, 'select'])->middleware(['auth:api'])->name('patient.select');
 Route::get('/patient/vitals/{id}', [PatientsController::class, 'patientVital'])->middleware(['auth:api'])->name('patient.vital');
 Route::get('/patient/QRScan/{uuid}', [PatientsController::class, 'qrScan'])->name('patient.qrScan');
+Route::get('/patient/QRGenerate/{uuid}', [PatientsController::class, 'generateQR'])->name('patient.qr.generate');
 Route::post('/lab-result/store', [LabController::class, 'store'])->middleware(['auth:api'])->name('labResult.store');
 
 Route::post('/medication/bulk/store', [MedicationController::class, 'medicationBulkUpload'])->middleware(['auth:api'])->name('medication.bulk.upload');

@@ -3,9 +3,12 @@
 namespace App\Services\Doctor;
 
 use App\Mail\AdminCreateUser;
+use App\Client\FileUpload\FileUploaderInterface;
+use App\Models\Medias;
 use App\Models\Role;
 use App\Models\User;
 use App\Repositories\Doctor\DoctorRepository;
+use App\Repositories\Media\MediaRepository;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -21,6 +24,8 @@ class DoctorCreator
      * @var DoctorRepository
      */
     protected $doctorRepository;
+    protected $fileUploader;
+    protected $mediaRepository;
 
 
     /**
@@ -28,9 +33,11 @@ class DoctorCreator
      * @param DoctorRepository $doctorRepository
 
      */
-    public function __construct(DoctorRepository $doctorRepository)
+    public function __construct(DoctorRepository $doctorRepository,FileUploaderInterface $fileUploader,MediaRepository $mediaRepository)
     {
         $this->doctorRepository = $doctorRepository;
+        $this->mediaRepository = $mediaRepository;
+        $this->fileUploader = $fileUploader;
     }
 
     /**
@@ -46,6 +53,11 @@ class DoctorCreator
             $password = bcrypt($reference);
             $data['created_by'] = getAuthUser();
             $doctor =  $this->doctorRepository->store($data);
+
+            $response =  $this->fileUploader->upload($data['image'], "signature");
+            $response['type'] = Medias::TYPE_SIGNATURE;
+            $response['doctor_id'] = $doctor->id;
+            $this->mediaRepository->store($response);
 
             $doctorArray = [
                 'username' => $doctor->first_name,

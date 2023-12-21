@@ -27,6 +27,7 @@ class DoctorResource extends JsonResource
             'hiring_date' => $this->hiring_date,
             'email' => $this->email,
             'address' => $this->address,
+            'signature' => $this->signature,
         ];
     }
 }

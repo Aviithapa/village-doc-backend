@@ -8,6 +8,7 @@ use App\Models\Patients;
 use Illuminate\Http\Request;
 use App\Repositories\Patients\PatientsRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Facades\JWTFactory;
@@ -49,7 +50,9 @@ class PatientsGetter
      */
     public function show($id)
     {
-        return $this->patientsRepository->findOrFail($id);
+        $patientDetails = $this->patientsRepository->findOrFail($id);
+        $patientDetails->qrCode = $this->generateQR($patientDetails->uuid)->content();
+        return $patientDetails;
     }
 
     /**
@@ -113,5 +116,11 @@ class PatientsGetter
         }else{
             throw  new  BadRequestHttpException('Patient Doesnot belong to the family in our record.');          
         }
+    }
+
+    public function generateQR($uuid)
+    {
+        $generatedURL = "https://village-doc-frontend.vercel.app/patient/".$uuid;
+        return response(QrCode::generate($generatedURL));
     }
 }
