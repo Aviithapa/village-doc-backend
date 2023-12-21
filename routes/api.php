@@ -36,7 +36,7 @@ Route::get('/me', [AuthController::class, 'me'])->middleware(['auth:api'])->name
 Route::get('/refresh-token', [AuthController::class, 'refresh'])->middleware(['auth:api'])->name('refresh');
 
 
-Route::apiResource('/patients', PatientsController::class)->middleware(['auth:api']);
+Route::apiResource('/patients', PatientsController::class);
 Route::apiResource('/vital', VitalController::class)->middleware(['auth:api']);
 Route::apiResource('/medical-record', MedicalRecordController::class)->middleware(['auth:api']);
 Route::apiResource('/doctor', DoctorController::class)->middleware(['auth:api']);
@@ -68,5 +68,5 @@ Route::apiResource('/informant', InformantController::class)->middleware(['auth:
 Route::get('/family-head/{household_no}', [PatientsController::class, 'showFamilyHead'])->name('patient.family-head');
 Route::get('/address', [AddressController::class, 'index'])->name('address.index');
 
-Route::get('patients/familyDetails/{id}',[PatientsController::class,'getFamilyDetail'])->name('patient.familyhead.detail');
-Route::get('patient/validatePatient',[PatientsController::class,'validatePatient'])->name('patient.validate');
+Route::get('patients/familyDetails/{id}', [PatientsController::class, 'getFamilyDetail'])->name('patient.familyhead.detail');
+Route::get('patient/validatePatient', [PatientsController::class, 'validatePatient'])->name('patient.validate');
