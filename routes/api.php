@@ -37,7 +37,7 @@ Route::get('/me', [AuthController::class, 'me'])->middleware(['auth:api'])->name
 Route::get('/refresh-token', [AuthController::class, 'refresh'])->middleware(['auth:api'])->name('refresh');
 
 
-Route::apiResource('/patients', PatientsController::class)->middleware(['auth:api']);
+Route::apiResource('/patients', PatientsController::class);
 Route::apiResource('/vital', VitalController::class)->middleware(['auth:api']);
 Route::post('/medical-record/new', [MedicalRecordController::class,'newmedicalRecordStore'])->middleware(['auth:api']);
 Route::apiResource('/medical-record', MedicalRecordController::class)->middleware(['auth:api']);
