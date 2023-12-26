@@ -37,7 +37,6 @@ class UpdatePatientsRequest extends FormRequest
             'age' => 'required|integer',
             'religion' => 'required|max:255',
             'is_house_head' => 'boolean',
-            'contact_no' => 'required',
             'househead_no' => 'required',
             'citizenship_no' => 'sometimes|required',
             'blood_group' => 'sometimes|required',

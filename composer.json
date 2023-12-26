@@ -19,6 +19,7 @@
         "laravel/socialite": "^5.10",
         "laravel/tinker": "^2.8",
         "maatwebsite/excel": "^3.1",
+        "microsoft/microsoft-graph": "^2.1",
         "pusher/pusher-php-server": "^7.2",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/geocoder": "^3.14",

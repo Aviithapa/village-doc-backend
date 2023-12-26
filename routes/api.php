@@ -6,6 +6,7 @@ use App\Http\Controllers\Appointment\AppointmentController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Complaint\ComplaintController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\Department\DepartmentTestController;
 use App\Http\Controllers\Doctor\DoctorController;
@@ -38,6 +39,7 @@ Route::get('/refresh-token', [AuthController::class, 'refresh'])->middleware(['a
 
 Route::apiResource('/patients', PatientsController::class);
 Route::apiResource('/vital', VitalController::class)->middleware(['auth:api']);
+Route::post('/medical-record/new', [MedicalRecordController::class,'newmedicalRecordStore'])->middleware(['auth:api']);
 Route::apiResource('/medical-record', MedicalRecordController::class)->middleware(['auth:api']);
 Route::apiResource('/doctor', DoctorController::class)->middleware(['auth:api']);
 Route::apiResource('/schedule', DoctorScheduleController::class)->middleware(['auth:api']);
@@ -68,5 +70,7 @@ Route::apiResource('/informant', InformantController::class)->middleware(['auth:
 Route::get('/family-head/{household_no}', [PatientsController::class, 'showFamilyHead'])->name('patient.family-head');
 Route::get('/address', [AddressController::class, 'index'])->name('address.index');
 
-Route::get('patients/familyDetails/{id}', [PatientsController::class, 'getFamilyDetail'])->name('patient.familyhead.detail');
-Route::get('patient/validatePatient', [PatientsController::class, 'validatePatient'])->name('patient.validate');
+Route::get('patients/familyDetails/{id}',[PatientsController::class,'getFamilyDetail'])->name('patient.familyhead.detail');
+Route::get('patient/validatePatient',[PatientsController::class,'validatePatient'])->name('patient.validate');
+
+Route::get('dashboard',[DashboardController::class,'dashboard'])->middleware(['auth:api']);

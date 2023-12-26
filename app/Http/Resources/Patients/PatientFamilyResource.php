@@ -25,11 +25,13 @@ class PatientFamilyResource extends JsonResource
             'contact_number' => $this->contact_number,
             'address' => $this->address,
             'patientNumber' => (isset($this->province->id) ? $this->province->id: '00') . '-' . (isset($this->district->id) ? $this->district->id: '00') . '-' . (isset($this->municipality->id) ? $this->municipality->id: '00') . '-' . $this->id,
+            'full_address' => (isset($this->province->name) ? $this->province->name: '00') . '-' . (isset($this->district->name) ? $this->district->name: '00') . '-' . (isset($this->municipality->name) ? $this->municipality->name: '00') . '-' . $this->address,
             'age' => $this->age,
             'patient_id' => $this->patient_id,
             'citizenship_no' => $this->citizenship_no,
             'uuid' => $this->uuid,
             'medias' => $this->medias[0]->path??"",
+            'relationship' => $this->relationship,
         ];
     }
 }

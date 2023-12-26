@@ -87,4 +87,9 @@ class MedicalRecordController extends Controller
             Response::HTTP_CREATED
         );
     }
+
+    public function newmedicalRecordStore(Request $request)
+    {
+        dd($request);
+    }
 }
