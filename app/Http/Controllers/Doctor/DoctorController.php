@@ -59,11 +59,11 @@ class DoctorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDoctorRequest $request,DoctorUpdater $doctorUpdater, string $id)
+    public function update(UpdateDoctorRequest $request, DoctorUpdater $doctorUpdater, string $id)
     {
         $data = $request->all();
         return $this->successResponse(
-            DoctorResource::make($doctorUpdater->update($id,$data)),
+            DoctorResource::make($doctorUpdater->update($id, $data)),
             __('patient.create_success'),
             Response::HTTP_CREATED
         );
@@ -75,16 +75,28 @@ class DoctorController extends Controller
     public function destroy(DoctorUpdater $doctorUpdater, string $id)
     {
         return $this->successResponse(
-           $doctorUpdater->destroy($id),
+            $doctorUpdater->destroy($id),
             __('Doctor Deleted Successfully!!'),
             Response::HTTP_CREATED
         );
     }
 
-    public function doctorList(Request $request,DoctorGetter $doctorGetter)
+    public function doctorList(Request $request, DoctorGetter $doctorGetter)
     {
         $data = $request->all();
         $doctorList = $doctorGetter->doctorList($data);
         return  $this->successResponse($doctorList);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param Request $request
+     * @param DoctorGetter $doctorGetter
+     * @return AnonymousResourceCollection
+     */
+    public function all(Request $request, DoctorGetter $doctorGetter)
+    {
+        return $doctorGetter->all();
     }
 }

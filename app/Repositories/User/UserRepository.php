@@ -28,7 +28,7 @@ class UserRepository extends Repository
     {
         $limit = $request->get('limit', config('app.per_page'));
         return $this->model->newQuery()
-            ->filter(new UserFilter($request))
+            // ->filter(new UserFilter($request))
             ->latest()
             ->paginate($limit);
     }

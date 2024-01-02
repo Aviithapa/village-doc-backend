@@ -28,11 +28,12 @@ class AppointmentRepository extends Repository
     {
         $limit = $request->get('limit', config('app.per_page'));
         $doctorId = $request->doctor_id;
+
         return $this->model->newQuery()
             ->filter(new AppointmentFilter($request))
             ->where(function ($query) use ($doctorId) {
-                if($doctorId)
-                    $query->where('doctor_id',$doctorId);
+                if ($doctorId)
+                    $query->where('doctor_id', $doctorId);
             })
             ->latest()
             ->paginate($limit);

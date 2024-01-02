@@ -47,20 +47,56 @@ class AppointmentGetter
         return $this->appointmentRepository->findOrFail($id);
     }
 
-    public function checkAppointment($appointmentDate,$doctorId)
+    public function checkAppointment($appointmentDate, $doctorId)
     {
-        $appointmentDate = $data['appointment_date']??null;
+        $appointmentDate = $data['appointment_date'] ?? null;
 
         $appointmentCount = Appointment::where([
-                                        ['doctor_id',$doctorId],
-                                        ['appointment_date',$appointmentDate]
-                                        ])
-                            ->get()
-                            ->count();
+            ['doctor_id', $doctorId],
+            ['appointment_date', $appointmentDate]
+        ])
+            ->get()
+            ->count();
 
-        if($appointmentCount <=30)
+        if ($appointmentCount <= 30)
             return true;
 
         return false;
+    }
+
+
+    public function getAppointmentUniqueUser()
+    {
+        $appointments = $this->appointmentRepository->all()->where('status', Appointment::STATUS_QUERIED);
+        $uniqueUsers = [];
+
+        foreach ($appointments as $appointment) {
+            $medicalRecord = $appointment->medicalRecord;
+
+            // Make sure the medical record and user relationships are loaded
+            $medicalRecord->load('user');
+
+            $creatorId = $medicalRecord->user->id;
+            $creatorName = $medicalRecord->user->username;
+
+            // Check if the user ID and name combination is not already in the array to keep it unique
+            if (!isset($uniqueUsers[$creatorId][$creatorName])) {
+                $uniqueUsers[$creatorId][$creatorName] = [
+                    'id' => $creatorId,
+                    'name' => $creatorName,
+                ];
+            }
+        }
+
+        // Flatten the uniqueUsers array to get a simple array of unique users
+        $flattenedUniqueUsers = [];
+
+        foreach ($uniqueUsers as $userGroup) {
+            foreach ($userGroup as $uniqueUser) {
+                $flattenedUniqueUsers[] = $uniqueUser;
+            }
+        }
+
+        return $flattenedUniqueUsers;
     }
 }

@@ -25,7 +25,9 @@ class User extends Authenticatable implements JWTSubject
         'remember_token',
         'token',
         'reference',
-        'status'
+        'status',
+        'teams_link',
+        'doctor_id'
     ];
 
     /**
@@ -56,6 +58,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Role::class);
     }
 
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class);
+    }
     /**
      * Displays the single role of user from many-many relationship
      * @return mixed

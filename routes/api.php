@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Address\AddressController;
+use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Allergies\AllergiesController;
 use App\Http\Controllers\Appointment\AppointmentController;
 use App\Http\Controllers\Auth\AuthController;
@@ -18,7 +19,9 @@ use App\Http\Controllers\MedicalRecord\PastMedicalHistoryController;
 use App\Http\Controllers\Medication\MedicationController;
 use App\Http\Controllers\Patients\InformantController;
 use App\Http\Controllers\Patients\PatientsController;
+use App\Http\Controllers\Roles\RolesController;
 use App\Http\Controllers\Vital\VitalController;
+use App\Models\Appointment;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +42,7 @@ Route::get('/refresh-token', [AuthController::class, 'refresh'])->middleware(['a
 
 Route::apiResource('/patients', PatientsController::class);
 Route::apiResource('/vital', VitalController::class)->middleware(['auth:api']);
-Route::post('/medical-record/new', [MedicalRecordController::class,'newmedicalRecordStore'])->middleware(['auth:api']);
+Route::post('/medical-record/new', [MedicalRecordController::class, 'newmedicalRecordStore'])->middleware(['auth:api']);
 Route::apiResource('/medical-record', MedicalRecordController::class)->middleware(['auth:api']);
 Route::apiResource('/doctor', DoctorController::class)->middleware(['auth:api']);
 Route::apiResource('/schedule', DoctorScheduleController::class)->middleware(['auth:api']);
@@ -47,6 +50,8 @@ Route::apiResource('/appointment', AppointmentController::class)->middleware(['a
 Route::apiResource('/allergies', AllergiesController::class)->middleware(['auth:api']);
 
 Route::get('/doctors/list', [DoctorController::class, 'doctorList'])->middleware(['auth:api'])->name('doctor.list');
+Route::get('/doctors/all', [DoctorController::class, 'all'])->middleware(['auth:api'])->name('doctor.all');
+
 
 Route::get('/patient/select', [PatientsController::class, 'select'])->middleware(['auth:api'])->name('patient.select');
 Route::get('/patient/vitals/{id}', [PatientsController::class, 'patientVital'])->middleware(['auth:api'])->name('patient.vital');
@@ -64,13 +69,21 @@ Route::apiResource('/medical-record-complaint', MedicalRecordComplaintController
 Route::apiResource('/category', CategoryController::class)->middleware(['auth:api']);
 Route::apiResource('/past-medical-history', PastMedicalHistoryController::class)->middleware(['auth:api']);
 Route::apiResource('/informant', InformantController::class)->middleware(['auth:api']);
+Route::apiResource('/user', UserController::class)->middleware(['auth:api']);
+Route::apiResource('/role', RolesController::class)->middleware(['auth:api']);
+
+
 
 
 
 Route::get('/family-head/{household_no}', [PatientsController::class, 'showFamilyHead'])->name('patient.family-head');
 Route::get('/address', [AddressController::class, 'index'])->name('address.index');
 
-Route::get('patients/familyDetails/{id}',[PatientsController::class,'getFamilyDetail'])->name('patient.familyhead.detail');
-Route::get('patient/validatePatient',[PatientsController::class,'validatePatient'])->name('patient.validate');
+Route::get('patients/familyDetails/{id}', [PatientsController::class, 'getFamilyDetail'])->name('patient.familyhead.detail');
+Route::get('patient/validatePatient', [PatientsController::class, 'validatePatient'])->name('patient.validate');
 
-Route::get('dashboard',[DashboardController::class,'dashboard'])->middleware(['auth:api']);
+Route::get('dashboard', [DashboardController::class, 'dashboard'])->middleware(['auth:api']);
+
+Route::get('/getAppointmentUniqueUser', [AppointmentController::class, 'getAppointmentUniqueUser'])->middleware(['auth:api']);
+
+Route::put('/updateBulkAppointment', [AppointmentController::class, 'updateBulkAppointment'])->middleware(['auth:api']);

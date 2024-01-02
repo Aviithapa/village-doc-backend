@@ -12,7 +12,7 @@ class AppointmentFilter extends BaseFilter
      *
      * @var array
      */
-    protected $filters = ['keyword', 'type', 'status', 'name','month','year','start_date'];
+    protected $filters = ['keyword', 'type', 'status', 'name', 'month', 'year', 'start_date', 'created_by'];
 
 
     /**
@@ -22,6 +22,7 @@ class AppointmentFilter extends BaseFilter
      */
     public function keyword()
     {
+
         if ($this->request->has('keyword')) {
             $keyword = $this->request->get('keyword');
             $this->builder->where(function ($query) use ($keyword) {
@@ -56,6 +57,21 @@ class AppointmentFilter extends BaseFilter
         }
     }
 
+
+    public function createdBy()
+    {
+        if ($this->request->has('created_by')) {
+            $createdBy = $this->request->get('created_by');
+            $this->builder->whereHas('medical_record', function ($query) use ($createdBy) {
+                $query->where('created_by', $createdBy);
+            });
+        }
+    }
+
+
+
+
+
     public function year()
     {
         if ($this->request->has('year')) {
@@ -66,8 +82,8 @@ class AppointmentFilter extends BaseFilter
     public function month()
     {
         if ($this->request->has('month')) {
-            $year = $this->request->get('year')??Carbon::now()->year;
-            $yearMonthFilter = $year.'-' . $this->request->get('month');
+            $year = $this->request->get('year') ?? Carbon::now()->year;
+            $yearMonthFilter = $year . '-' . $this->request->get('month');
             $this->builder->where('created_at', 'LIKE', $yearMonthFilter . '%');
         }
     }

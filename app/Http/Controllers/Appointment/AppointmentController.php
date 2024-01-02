@@ -61,7 +61,7 @@ class AppointmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAppointmentRequest $request,AppointmentUpdater $appointmentUpdater,$id)
+    public function update(UpdateAppointmentRequest $request, AppointmentUpdater $appointmentUpdater, $id)
     {
         $data = $request->all();
         return $this->successResponse(
@@ -77,5 +77,19 @@ class AppointmentController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+
+    public function getAppointmentUniqueUser(Request $request, AppointmentGetter $appointmentGetter)
+    {
+        return  $appointmentGetter->getAppointmentUniqueUser($request);
+    }
+
+
+
+    public function updateBulkAppointment(Request $request, AppointmentUpdater $appointmentUpdater)
+    {
+        $data = $request->all();
+        return $appointmentUpdater->updateBulkAppointment($data);
     }
 }

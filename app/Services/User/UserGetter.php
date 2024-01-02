@@ -33,9 +33,10 @@ class UserGetter
      * @param Request $request
      * @return LengthAwarePaginator
      */
-    public function getPaginatedList(): LengthAwarePaginator
+    public function getPaginatedList(Request $request): LengthAwarePaginator
     {
-        return $this->userRepository->getWithPagination();
+
+        return $this->userRepository->getPaginatedList($request);
     }
 
     /**
@@ -45,26 +46,7 @@ class UserGetter
      */
     public function show($id)
     {
-        $userData = $this->userRepository->findById($id);
-        // $subjects = $this->subjectRepository->getAll()->where('created_by', $id);
-        // $subjectData = [];
-        // foreach ($subjects as $subject) {
-        //     $students = $this->studentRepository->getAll()->where('subject_id', $subject->id);
-        //     $subjectData[] = [
-        //         'subject' => $subject,
-        //         'student_count' => $students->count(),
-        //     ];
-        // }
-        // $subjectCount = count($subjectData);
-        // $user = Auth::user()->id;
-
-        // $responseData = [
-        //     'user_data' => $userData,
-        //     'subject_data' => $subjectData,
-        //     'subject_count' => $subjectCount,
-        //     'user' => $user
-        // ];
-
+        $userData = $this->userRepository->findOrFail($id);
         return $userData;
     }
 }
