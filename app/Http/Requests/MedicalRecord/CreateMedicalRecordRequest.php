@@ -25,8 +25,8 @@ class CreateMedicalRecordRequest extends FormRequest
     {
         $fromRule = Rule::in(Prescription::FROM);
         return [
-            'diagnosis' => 'required',
-            'notes' => 'required',
+            // 'diagnosis' => 'required',
+            // 'notes' => 'required',
             'record_date' => 'required|date|date_format:Y-m-d',
             'patient_id' => 'required|exists:patients,id',
             'from' => ['sometimes', 'required', 'max:255', $fromRule],

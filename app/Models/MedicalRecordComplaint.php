@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class MedicalRecordComplaint extends Model
 {
@@ -13,18 +14,18 @@ class MedicalRecordComplaint extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'complaint_id',
+        'compalint_id',
         'medical_record_id',
         'duration'
     ];
 
     public function complaint(): BelongsTo
     {
-        return $this->belongsTo(Complaint::class,'complaint_id','id');
+        return $this->belongsTo(Complaint::class, 'compalint_id', 'id');
     }
 
     public function medical_record(): BelongsTo
     {
-        return $this->belongsTo(MedicalRecord::class,'medical_record_id','id');
+        return $this->belongsTo(MedicalRecord::class, 'medical_record_id', 'id');
     }
 }

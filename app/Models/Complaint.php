@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Infrastructure\Traits\HasFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Complaint extends Model
@@ -12,7 +13,7 @@ class Complaint extends Model
     use HasFactory;
     use SoftDeletes;
     use HasFilter;
-    
+
     protected $fillable = [
         'name'
     ];
@@ -20,5 +21,10 @@ class Complaint extends Model
     public function category()
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    public function medicalRecordComplaint(): BelongsTo
+    {
+        return $this->belongsTo(MedicalRecordComplaint::class);
     }
 }

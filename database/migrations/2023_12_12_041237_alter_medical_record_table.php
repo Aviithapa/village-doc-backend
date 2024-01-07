@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('medical_records',function(Blueprint $table){
+        Schema::table('medical_records', function (Blueprint $table) {
             $table->longText('hopi')->nullable()->after('diagnosis');
         });
 
-        Schema::table('prescriptions',function(Blueprint $table){
+        Schema::table('prescriptions', function (Blueprint $table) {
             $table->longText('provisional_diagnosis')->nullable()->after('implementation');
             $table->longText('examination')->nullable()->after('provisional_diagnosis');
         });
@@ -26,11 +26,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('medical_records', function($table) {
+        Schema::table('medical_records', function ($table) {
             $table->dropColumn('hopi');
         });
 
-        Schema::table('prescriptions', function($table) {
+        Schema::table('prescriptions', function ($table) {
             $table->dropColumn('provisional_diagnosis');
             $table->dropColumn('examination');
         });

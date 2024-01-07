@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MedicalRecord extends Model
@@ -35,12 +34,11 @@ class MedicalRecord extends Model
     protected $fillable = [
         'patient_id',
         'record_date',
-        'notes',
-        'diagnosis',
+        'treatment_history',
+        'reproductive_plan',
         'status',
         'created_by',
         'updated_by',
-        'hopi'
     ];
 
     public function patient(): BelongsTo
@@ -71,5 +69,35 @@ class MedicalRecord extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+
+    public function patientHistory(): HasMany
+    {
+        return $this->hasMany(PatientHistory::class, 'medical_record_id', 'id');
+    }
+
+    public function medicalRecordDetails(): HasMany
+    {
+        return $this->hasMany(MedicalRecordDetails::class, 'medical_record_id', 'id');
+    }
+
+    public function menstrualHistory(): BelongsTo
+    {
+        return $this->belongsTo(MenstrualHistory::class, 'medical_record_id', 'id');
+    }
+
+    public function obstreticHistory(): BelongsTo
+    {
+        return $this->belongsTo(ObstreticHistory::class, 'medical_record_id', 'id');
+    }
+
+    public function complain(): HasMany
+    {
+        return $this->hasMany(MedicalRecordComplaint::class, 'medical_record_id', 'id');
+    }
+
+    public function examination(): HasMany
+    {
+        return $this->hasMany(Examinations::class, 'medical_record_id', 'id');
     }
 }

@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Repositories\MedicalRecord;
+namespace App\Repositories\MenstrualHistory;
 
-use App\Models\MedicalRecord;
+use App\Models\MenstrualHistory;
 use App\Repositories\Repository;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class MedicalRecordRepository extends Repository
+class MenstrualHistoryRepository extends Repository
 {
 
     /**
-     * MedicalRecordRepository constructor.
-     * @param MedicalRecord $MedicalRecord
+     * MenstrualHistoryRepository constructor.
+     * @param MenstrualHistory $MenstrualHistory
      */
-    public function __construct(MedicalRecord $MedicalRecord)
+    public function __construct(MenstrualHistory $MenstrualHistory)
     {
-        parent::__construct($MedicalRecord);
+        parent::__construct($MenstrualHistory);
     }
 
     /**
@@ -28,7 +28,6 @@ class MedicalRecordRepository extends Repository
     {
         $limit = $request->get('limit', config('app.per_page'));
         return $this->model->newQuery()
-            // ->filter(new MedicalRecordFilter($request))
             ->latest()
             ->paginate($limit);
     }

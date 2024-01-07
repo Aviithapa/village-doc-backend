@@ -14,6 +14,10 @@ class MedicalRecordComplaintResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'duration' => $this->duration,
+            'complaint' => $this->complaint,
+            'complaint_id' => $this->compalint_id
+        ];
     }
 }

@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Repositories\MedicalRecord;
+namespace App\Repositories\ObstreticHistory;
 
-use App\Models\MedicalRecord;
+use App\Models\ObstreticHistory;
 use App\Repositories\Repository;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class MedicalRecordRepository extends Repository
+class ObstreticHistoryRepository extends Repository
 {
 
     /**
-     * MedicalRecordRepository constructor.
-     * @param MedicalRecord $MedicalRecord
+     * ObstreticHistoryRepository constructor.
+     * @param ObstreticHistory $ObstreticHistory
      */
-    public function __construct(MedicalRecord $MedicalRecord)
+    public function __construct(ObstreticHistory $ObstreticHistory)
     {
-        parent::__construct($MedicalRecord);
+        parent::__construct($ObstreticHistory);
     }
 
     /**
@@ -28,7 +28,6 @@ class MedicalRecordRepository extends Repository
     {
         $limit = $request->get('limit', config('app.per_page'));
         return $this->model->newQuery()
-            // ->filter(new MedicalRecordFilter($request))
             ->latest()
             ->paginate($limit);
     }

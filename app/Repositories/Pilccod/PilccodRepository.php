@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Repositories\MedicalRecord;
+namespace App\Repositories\Pilccod;
 
-use App\Models\MedicalRecord;
+use App\Models\Pilccod;
 use App\Repositories\Repository;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class MedicalRecordRepository extends Repository
+class PilccodRepository extends Repository
 {
 
     /**
-     * MedicalRecordRepository constructor.
-     * @param MedicalRecord $MedicalRecord
+     * PilccodRepository constructor.
+     * @param Pilccod $Pilccod
      */
-    public function __construct(MedicalRecord $MedicalRecord)
+    public function __construct(Pilccod $pilccod)
     {
-        parent::__construct($MedicalRecord);
+        parent::__construct($pilccod);
     }
 
     /**
@@ -28,7 +28,6 @@ class MedicalRecordRepository extends Repository
     {
         $limit = $request->get('limit', config('app.per_page'));
         return $this->model->newQuery()
-            // ->filter(new MedicalRecordFilter($request))
             ->latest()
             ->paginate($limit);
     }

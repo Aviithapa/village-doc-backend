@@ -63,21 +63,21 @@ class MedicalRecordController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMedicalRecordRequest $request,MedicalRecordUpdater $medicalRecordUpdater, string $id)
+    public function update(UpdateMedicalRecordRequest $request, MedicalRecordUpdater $medicalRecordUpdater, string $id)
     {
         $data = $request->all();
-        return $this->successResponse($medicalRecordUpdater->update($id,$data),__('global.medical.update_success'));
+        return $this->successResponse($medicalRecordUpdater->update($id, $data), __('global.medical.update_success'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(MedicalRecordUpdater $medicalRecordUpdater,string $id)
+    public function destroy(MedicalRecordUpdater $medicalRecordUpdater, string $id)
     {
-        return $this->successResponse($medicalRecordUpdater->destroy($id),__("global.medical.delete_success"));
+        return $this->successResponse($medicalRecordUpdater->destroy($id), __("global.medical.delete_success"));
     }
 
-    public function medicalRecordDescription(MedicalRecordStatusRequest $request,MedicalRecordCreator $medicalRecordCreator)
+    public function medicalRecordDescription(MedicalRecordStatusRequest $request, MedicalRecordCreator $medicalRecordCreator)
     {
         $data = $request->all();
         $medicalRecordCreator->storeMedicalStatus($data);

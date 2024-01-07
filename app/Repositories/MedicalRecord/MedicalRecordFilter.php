@@ -12,7 +12,7 @@ class MedicalRecordFilter extends BaseFilter
      *
      * @var array
      */
-    protected $filters = ['keyword', 'type', 'status', 'name','month','year','start_date'];
+    protected $filters = ['keyword', 'type', 'status', 'name', 'month', 'year', 'start_date'];
 
 
     /**
@@ -66,8 +66,8 @@ class MedicalRecordFilter extends BaseFilter
     public function month()
     {
         if ($this->request->has('month')) {
-            $year = $this->request->get('year')??Carbon::now()->year;
-            $yearMonthFilter = $year.'-' . $this->request->get('month');
+            $year = $this->request->get('year') ?? Carbon::now()->year;
+            $yearMonthFilter = $year . '-' . $this->request->get('month');
             $this->builder->where('created_at', 'LIKE', $yearMonthFilter . '%');
         }
     }
@@ -80,5 +80,4 @@ class MedicalRecordFilter extends BaseFilter
             $this->builder->whereBetween('created_at', [$startDate, $endDate])->get();
         }
     }
-
 }

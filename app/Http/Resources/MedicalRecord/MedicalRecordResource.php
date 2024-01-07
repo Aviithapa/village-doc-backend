@@ -17,15 +17,19 @@ class MedicalRecordResource extends JsonResource
         return [
             "id"   => $this->id,
             "record_date"  => $this->record_date,
-            'notes'  => $this->notes,
-            'diagnosis' => $this->diagnosis,
+            'treatment_history' => $this->treatment_history,
             'patient' => $this->patient,
             'vitals' => $this->vitals,
             'medias' => $this->patient->medias,
             'prescription' => $this->prescription,
             'appointment' => $this->appointment,
             'status' => $this->status,
-            'hopi' => $this->hopi,
+            'reproductive_plan' => $this->reproductive_plan,
+            'patient_history' => $this->patientHistory,
+            'medicalRecordDetails' => $this->medicalRecordDetails,
+            'menstrualHistory' => $this->menstrualHistory,
+            'complain' => MedicalRecordComplaintResource::collection($this->complain),
+            'examination' => $this->examination
         ];
     }
 }
