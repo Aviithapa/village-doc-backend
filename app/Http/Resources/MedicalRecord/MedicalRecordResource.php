@@ -29,7 +29,8 @@ class MedicalRecordResource extends JsonResource
             'medicalRecordDetails' => $this->medicalRecordDetails,
             'menstrualHistory' => $this->menstrualHistory,
             'complain' => MedicalRecordComplaintResource::collection($this->complain),
-            'examination' => $this->examination
+            'examination' => $this->examination,
+            "medication" => $this->medication
         ];
     }
 }

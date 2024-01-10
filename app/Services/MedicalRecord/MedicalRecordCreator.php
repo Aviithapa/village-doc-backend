@@ -9,6 +9,7 @@ use App\Models\Prescription;
 use App\Repositories\MedicalRecord\MedicalRecordRepository;
 use App\Services\Alcohol\AlcoholCreator;
 use App\Services\Allergies\AllergiesCreator;
+use App\Services\Appointment\AppointmentCreator;
 use App\Services\BMI\BmiCreator;
 use App\Services\Examination\ExaminationCreator;
 use App\Services\MedicalRecordDetails\MedicalRecordDetailsCreator;
@@ -39,8 +40,8 @@ class MedicalRecordCreator
         $pilccodCreator, $patientHistoryCreator,
         $allergyCreator, $menstrualHistoryCreator, $obstreticHistoryCreator,
         $examinationCreator, $medicalRecordDetailsCreator,
-        $cheifComplainCreator, $vitalsCreator,$packYearCreator,
-        $alcoholUnitCreator, $bmiCreator;
+        $cheifComplainCreator, $vitalsCreator, $packYearCreator,
+        $alcoholUnitCreator, $bmiCreator, $appointmentCreator;
 
 
     /**
@@ -62,7 +63,8 @@ class MedicalRecordCreator
         VitalCreator $vitalsCreator,
         PackYearCreator $packYearCreator,
         AlcoholCreator $alcoholUnitCreator,
-        BmiCreator $bmiCreator
+        BmiCreator $bmiCreator,
+        AppointmentCreator $appointmentCreator
     ) {
         $this->medicalRecordRepository = $medicalRecordRepository;
         $this->chatGptService = $chatGPTService;
@@ -79,6 +81,7 @@ class MedicalRecordCreator
         $this->packYearCreator = $packYearCreator;
         $this->alcoholUnitCreator = $alcoholUnitCreator;
         $this->bmiCreator = $bmiCreator;
+        $this->appointmentCreator = $appointmentCreator;
     }
 
     /**
@@ -103,7 +106,7 @@ class MedicalRecordCreator
             ];
 
             if ($data['from'] === Prescription::FROM_AI) {
-                $message = "I'm experiencing " . $data['diagnosis']  . " . What could be the possible causes, and what general advice or precautions should I consider? Please note that I understand this is not a substitute for professional medical advice, but I'm looking for general information and suggestions.";
+                $message = "I'm experiencing " . $data['medical_record_details']['hopi']  . " . What could be the possible causes, and what general advice or precautions should I consider? Please note that I understand this is not a substitute for professional medical advice, but I'm looking for general information and suggestions.";
                 $chat =  $this->chatGptService->chat($message);
                 $prescriptionData['suggested_treatment'] = $chat;
             }
@@ -111,12 +114,14 @@ class MedicalRecordCreator
             if (!empty($data['examination'])) {
                 $examinationData = $data['examination'];
                 $examinationData['medical_record_id'] = $medicalRecord->id;
+                $examinationData['from'] = Prescription::FROM_HEALTH_WORKER;
                 $this->examinationCreator->store($examinationData);
             }
 
             if (!empty($data['medical_record_details'])) {
                 $medicalRecordDetailsData = $data['medical_record_details'];
                 $medicalRecordDetailsData['medical_record_id'] = $medicalRecord->id;
+                $medicalRecordDetailsData['from'] = Prescription::FROM_HEALTH_WORKER;
                 $this->medicalRecordDetailsCreator->store($medicalRecordDetailsData);
             }
 
@@ -128,9 +133,8 @@ class MedicalRecordCreator
 
             if (!empty($data['chief_complaint'])) {
                 $chiefComplaintData = $data['chief_complaint'];
-                foreach($chiefComplaintData as $key => $complaintsData)
-                {
-                    $chiefComplaintData[$key]['medical_record_id'] = $medicalRecord->id; 
+                foreach ($chiefComplaintData as $key => $complaintsData) {
+                    $chiefComplaintData[$key]['medical_record_id'] = $medicalRecord->id;
                 }
                 $this->cheifComplainCreator->insert($chiefComplaintData);
             }
@@ -187,6 +191,16 @@ class MedicalRecordCreator
                 $this->obstreticHistoryCreator->store($obstetricHistoryData);
             }
 
+            if ($data['from'] === Prescription::FROM_APPOINTMENT) {
+                $appointmentData['medical_record_id'] = $medicalRecord->id;
+                $appointmentData['appointment_date'] = Carbon::now();
+                $appointmentData['appointment_time'] = $appointmentData['appointment_date']->addHour();
+                $appointmentData['status'] = 'QUERIED';
+                $appointmentData['reason'] = "Appoinment Booked";
+                $this->appointmentCreator->store($appointmentData);
+                $prescriptionData['from'] = Prescription::FROM_HEALTH_WORKER;
+            }
+
             $this->prescriptionCreator->store($prescriptionData);
 
             DB::commit();
@@ -197,6 +211,7 @@ class MedicalRecordCreator
             ];
         } catch (Exception $e) {
             DB::rollBack();
+            dd($e);
             throw $e;
         }
     }
