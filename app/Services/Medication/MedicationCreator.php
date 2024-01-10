@@ -44,7 +44,7 @@ class MedicationCreator
         $medications = $data['medication'];
 
         foreach($medications as $key => $value){
-            $medications[$key]['prescription_id'] = $data['prescription_id'];
+            $medications[$key]['medical_record_id'] = $data['medical_record_id'];
             $medications[$key]['created_by'] = getAuthUser();
         }
         $medications =  $this->medicationRepository->insert($medications);
