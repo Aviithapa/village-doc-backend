@@ -59,6 +59,8 @@ class PatientsCreator
         try {
             DB::beginTransaction();
             $checkFamilyHead = $this->checkFamilyHead($data);
+            $data['is_house_head'] = 1;
+
             if ($checkFamilyHead){
                 $data['patient_id'] = $checkFamilyHead;
                 $data['is_house_head'] = 0;

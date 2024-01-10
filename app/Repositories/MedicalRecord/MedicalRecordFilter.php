@@ -4,6 +4,7 @@ namespace App\Repositories\MedicalRecord;
 
 use App\Infrastructure\Filters\BaseFilter;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class MedicalRecordFilter extends BaseFilter
 {
@@ -12,7 +13,7 @@ class MedicalRecordFilter extends BaseFilter
      *
      * @var array
      */
-    protected $filters = ['keyword', 'type', 'status', 'name', 'month', 'year', 'start_date'];
+    protected $filters = ['keyword', 'type', 'status', 'name', 'month', 'year', 'start_date','patient_name'];
 
 
     /**
@@ -78,6 +79,18 @@ class MedicalRecordFilter extends BaseFilter
             $startDate =  $this->request->get('start_date');
             $endDate =  $this->request->get('end_date');
             $this->builder->whereBetween('created_at', [$startDate, $endDate])->get();
+        }
+    }
+
+    public function patientName()
+    {
+        if($this->request->has('patient_name')){
+            $patientName = $this->request->get('patient_name');
+            $this->builder->whereHas('patient',function($q) use ($patientName){
+                $q->where('first_name', 'LIKE', '%' . $patientName . '%')
+                    ->orWhere('last_name', 'LIKE', '%' . $patientName . '%')
+                    ->orWhere(DB::raw("CONCAT(`first_name`, ' ', `last_name`)"), 'LIKE', "%".$patientName."%");
+            });
         }
     }
 }
