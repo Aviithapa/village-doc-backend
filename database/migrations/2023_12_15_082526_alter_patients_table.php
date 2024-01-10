@@ -35,6 +35,7 @@ return new class extends Migration
             $table->dropColumn('is_house_head');
             $table->dropColumn('contact_no');
             $table->dropColumn('househead_no');
+            $table->dropForeign(['patient_id']);
             $table->dropColumn('patient_id');
         });
     }

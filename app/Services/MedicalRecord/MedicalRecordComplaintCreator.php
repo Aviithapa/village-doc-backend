@@ -37,9 +37,23 @@ class MedicalRecordComplaintCreator
     {
         try{
             DB::beginTransaction();
-            $doctor =  $this->medicalRecordComplaintRepository->store($data);
+            $medicalRecordComplaint =  $this->medicalRecordComplaintRepository->store($data);
             DB::commit();
-            return $doctor->refresh();
+            return $medicalRecordComplaint->refresh();
+
+        }catch(Exception $e){
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
+    public function insert($data)
+    {
+        try{
+            DB::beginTransaction();
+            $medicalRecordComplaint =  $this->medicalRecordComplaintRepository->insert($data);
+            DB::commit();
+            return $medicalRecordComplaint;
 
         }catch(Exception $e){
             DB::rollBack();

@@ -26,7 +26,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('vitals',function(Blueprint $table){
+        Schema::table('medias',function(Blueprint $table){
             $table->dropForeign(['doctor_id']);
             $table->dropColumn('doctor_id');
             DB::statement("ALTER TABLE medias MODIFY `type` ENUM('PHOTO', 'TEST_REPORT','OTHER')");

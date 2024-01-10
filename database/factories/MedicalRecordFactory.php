@@ -23,10 +23,9 @@ class MedicalRecordFactory extends Factory
         return [
             'patient_id' => $this->faker->numberBetween(1, 100),
             'record_date' => $this->faker->date,
-            'notes' => $this->faker->text,
-            'diagnosis' => $this->faker->text,
-            'hopi' => $this->faker->paragraphs(3, true),
-            'status' => $this->faker->randomElement(['PENDING', 'APPOINTMENT BOOKED', 'CONSULTING']),
+            'treatment_history' => $this->faker->text,
+            'reproductive_plan' => $this->faker->boolean,
+            'status' => $this->faker->randomElement(['PENDING','APPOINTMENT BOOKED','CONSULTING','RESCHEDULED','FOLLOW UP','CLOSED']),
             'created_at' => now(),
             'updated_at' => now(),
             'created_by' => $this->faker->numberBetween(3, 4),

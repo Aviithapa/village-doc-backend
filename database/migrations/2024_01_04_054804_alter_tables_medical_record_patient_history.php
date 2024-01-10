@@ -32,6 +32,16 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('patient_histories',function ($table) {
+                $table->text('treatment_history')->nullable();
+            }
+        );
+        Schema::table('medical_records', function ($table) {
+            $table->text('notes')->nullable();
+            $table->text('hopi')->nullable();
+            $table->text('diagnosis')->nullable();
+            $table->dropColumn('treatment_history');
+            $table->dropColumn('reproductive_plan');
+        });
     }
 };
