@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BMI extends Model
@@ -20,4 +21,9 @@ class BMI extends Model
         'weight',
         'bmi',
     ];
+
+    public function MedicalRecord(): BelongsTo
+    {
+        return $this->belongsTo(MedicalRecord::class, 'medical_record_id', 'id');
+    }
 }
