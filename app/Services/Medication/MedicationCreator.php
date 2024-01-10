@@ -11,7 +11,7 @@ use App\Repositories\Medication\MedicationRepository;
  */
 class MedicationCreator
 {
-     /**
+    /**
      * @var MedicationRepository
      */
     protected $medicationRepository;
@@ -43,7 +43,8 @@ class MedicationCreator
     {
         $medications = $data['medication'];
 
-        foreach($medications as $key => $value){
+        // dd($data);
+        foreach ($medications as $key => $value) {
             $medications[$key]['medical_record_id'] = $data['medical_record_id'];
             $medications[$key]['created_by'] = getAuthUser();
         }

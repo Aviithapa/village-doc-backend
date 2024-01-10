@@ -100,4 +100,9 @@ class MedicalRecord extends Model
     {
         return $this->hasMany(Examinations::class, 'medical_record_id', 'id');
     }
+
+    public function medication(): HasMany
+    {
+        return $this->hasMany(Medication::class, 'medical_record_id', 'id');
+    }
 }
