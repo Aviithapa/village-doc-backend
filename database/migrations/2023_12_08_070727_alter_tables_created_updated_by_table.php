@@ -93,52 +93,76 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('appointments', function($table) {
+            $table->dropForeign(['created_by']);
+            $table->dropForeign(['updated_by']);
             $table->dropColumn('created_by');
             $table->dropColumn('updated_by');
         });
         Schema::table('departments', function($table) {
+            $table->dropForeign(['created_by']);
+            $table->dropForeign(['updated_by']);
             $table->dropColumn('created_by');
             $table->dropColumn('updated_by');
         });
         Schema::table('department_tests', function($table) {
+            $table->dropForeign(['created_by']);
+            $table->dropForeign(['updated_by']);
             $table->dropColumn('created_by');
             $table->dropColumn('updated_by');
         });
         Schema::table('doctors', function($table) {
+            $table->dropForeign(['created_by']);
+            $table->dropForeign(['updated_by']);
             $table->dropColumn('created_by');
             $table->dropColumn('updated_by');
         });
         Schema::table('doctor_schedules', function($table) {
+            $table->dropForeign(['created_by']);
+            $table->dropForeign(['updated_by']);
             $table->dropColumn('created_by');
             $table->dropColumn('updated_by');
         });
         Schema::table('lab_results', function($table) {
+            $table->dropForeign(['created_by']);
+            $table->dropForeign(['updated_by']);
             $table->dropColumn('created_by');
             $table->dropColumn('updated_by');
         });
         Schema::table('medical_records', function($table) {
+            $table->dropForeign(['updated_by']);
             $table->dropColumn('updated_by');
         });
         Schema::table('medical_record_descriptions', function($table) {
+            $table->dropForeign(['created_by']);
+            $table->dropForeign(['updated_by']);
             $table->dropColumn('created_by');
             $table->dropColumn('updated_by');
         });
         Schema::table('medications', function($table) {
+            $table->dropForeign(['created_by']);
+            $table->dropForeign(['updated_by']);
             $table->dropColumn('created_by');
             $table->dropColumn('updated_by');
         });
         Schema::table('patients', function($table) {
+            $table->dropForeign(['updated_by']);
             $table->dropColumn('updated_by');
         });
         Schema::table('prescriptions', function($table) {
+            $table->dropForeign(['created_by']);
+            $table->dropForeign(['updated_by']);
             $table->dropColumn('created_by');
             $table->dropColumn('updated_by');
         });
         Schema::table('vitals', function($table) {
+            $table->dropForeign(['created_by']);
+            $table->dropForeign(['updated_by']);
             $table->dropColumn('created_by');
             $table->dropColumn('updated_by');
         });
         Schema::table('allergies', function($table) {
+            $table->dropForeign(['created_by']);
+            $table->dropForeign(['updated_by']);
             $table->dropColumn('created_by');
             $table->dropColumn('updated_by');
         });

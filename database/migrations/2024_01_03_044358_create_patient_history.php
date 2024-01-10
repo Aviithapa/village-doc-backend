@@ -49,5 +49,16 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('patient_histories');
+        Schema::create('past_medical_histories', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('patient_id');
+            $table->longText('medical_history')->nullable();
+            $table->longText('surgical_history')->nullable();
+            $table->longText('family_history')->nullable();
+            $table->longText('personal_history')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+            $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade');
+        });
     }
 };

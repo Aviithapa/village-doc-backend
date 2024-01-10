@@ -30,11 +30,13 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('patients', function (Blueprint $table) {
-            $table->dropColumn('ward_no');
+            $table->dropForeign(['created_by']);
+            // $table->dropColumn('ward_no');
             $table->dropColumn('created_by');
         });
 
         Schema::table('medical_records', function (Blueprint $table) {
+            $table->dropForeign(['created_by']);
             $table->dropColumn('created_by');
         });
     }

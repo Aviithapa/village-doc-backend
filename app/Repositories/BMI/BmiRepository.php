@@ -1,34 +1,33 @@
 <?php
 
-namespace App\Repositories\MedicalRecord;
+namespace App\Repositories\BMI;
 
-use App\Models\MedicalRecord;
+use App\Models\BMI;
 use App\Repositories\Repository;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class MedicalRecordRepository extends Repository
+class BmiRepository extends Repository
 {
 
     /**
-     * MedicalRecordRepository constructor.
-     * @param MedicalRecord $MedicalRecord
+     * BmiRepository constructor.
+     * @param BMI $Bmi
      */
-    public function __construct(MedicalRecord $MedicalRecord)
+    public function __construct(BMI $bmi)
     {
-        parent::__construct($MedicalRecord);
+        parent::__construct($bmi);
     }
 
     /**
      * @param Request $request
      * @param array $columns
      * @return LengthAwarePaginator
-     */
+    */
     public function getPaginatedList(Request $request, array $columns = array('*')): LengthAwarePaginator
     {
         $limit = $request->get('limit', config('app.per_page'));
         return $this->model->newQuery()
-            ->filter(new MedicalRecordFilter($request))
             ->latest()
             ->paginate($limit);
     }

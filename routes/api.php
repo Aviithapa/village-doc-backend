@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\Address\AddressController;
+use App\Http\Controllers\Alcohol\AlcoholController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Allergies\AllergiesController;
 use App\Http\Controllers\Appointment\AppointmentController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\BMI\BmiController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Complaint\ComplaintController;
 use App\Http\Controllers\Dashboard\DashboardController;
@@ -17,6 +19,7 @@ use App\Http\Controllers\MedicalRecord\MedicalRecordComplaintController;
 use App\Http\Controllers\MedicalRecord\MedicalRecordController;
 use App\Http\Controllers\MedicalRecord\PastMedicalHistoryController;
 use App\Http\Controllers\Medication\MedicationController;
+use App\Http\Controllers\PackYear\PackYearController;
 use App\Http\Controllers\Patients\InformantController;
 use App\Http\Controllers\Patients\PatientsController;
 use App\Http\Controllers\Roles\RolesController;
@@ -87,3 +90,7 @@ Route::get('dashboard', [DashboardController::class, 'dashboard'])->middleware([
 Route::get('/getAppointmentUniqueUser', [AppointmentController::class, 'getAppointmentUniqueUser'])->middleware(['auth:api']);
 
 Route::put('/updateBulkAppointment', [AppointmentController::class, 'updateBulkAppointment'])->middleware(['auth:api']);
+
+Route::apiResource('/alcohol', AlcoholController::class)->middleware(['auth:api']);
+Route::apiResource('/pack-year', PackYearController::class)->middleware(['auth:api']);
+Route::apiResource('/bmi', BmiController::class)->middleware(['auth:api']);

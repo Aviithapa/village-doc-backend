@@ -20,7 +20,7 @@ class AppointmentFactory extends Factory
     public function definition(): array
     {
         return [
-            // 'patient_id' => $this->faker->numberBetween(1, 100),
+            'patient_id' => $this->faker->numberBetween(1, 100),
             'medical_record_id' => $this->faker->numberBetween(1, 100),
             'appointment_date' =>   $this->faker->date(),
             'appointment_time' => $this->faker->time(),

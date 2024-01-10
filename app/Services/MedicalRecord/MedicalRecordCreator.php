@@ -7,14 +7,18 @@ use App\Models\MedicalRecordDescription;
 use App\Models\Pilccod;
 use App\Models\Prescription;
 use App\Repositories\MedicalRecord\MedicalRecordRepository;
+use App\Services\Alcohol\AlcoholCreator;
 use App\Services\Allergies\AllergiesCreator;
+use App\Services\BMI\BmiCreator;
 use App\Services\Examination\ExaminationCreator;
 use App\Services\MedicalRecordDetails\MedicalRecordDetailsCreator;
 use App\Services\MenstrualHistory\MenstrualHistoryCreator;
 use App\Services\ObstreticHistory\ObstreticHistoryCreator;
+use App\Services\PackYear\PackYearCreator;
 use App\Services\PatientHistory\PatientHistoryCreator;
 use App\Services\Pilccod\PilccodCreator;
 use App\Services\Prescription\PrescriptionCreator;
+use App\Services\Vital\VitalCreator;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +39,8 @@ class MedicalRecordCreator
         $pilccodCreator, $patientHistoryCreator,
         $allergyCreator, $menstrualHistoryCreator, $obstreticHistoryCreator,
         $examinationCreator, $medicalRecordDetailsCreator,
-        $cheifComplainCreator;
+        $cheifComplainCreator, $vitalsCreator,$packYearCreator,
+        $alcoholUnitCreator, $bmiCreator;
 
 
     /**
@@ -54,6 +59,10 @@ class MedicalRecordCreator
         ExaminationCreator $examinationCreator,
         MedicalRecordDetailsCreator $medicalRecordDetailsCreator,
         MedicalRecordComplaintCreator $cheifComplainCreator,
+        VitalCreator $vitalsCreator,
+        PackYearCreator $packYearCreator,
+        AlcoholCreator $alcoholUnitCreator,
+        BmiCreator $bmiCreator
     ) {
         $this->medicalRecordRepository = $medicalRecordRepository;
         $this->chatGptService = $chatGPTService;
@@ -66,6 +75,10 @@ class MedicalRecordCreator
         $this->examinationCreator = $examinationCreator;
         $this->medicalRecordDetailsCreator = $medicalRecordDetailsCreator;
         $this->cheifComplainCreator = $cheifComplainCreator;
+        $this->vitalsCreator = $vitalsCreator;
+        $this->packYearCreator = $packYearCreator;
+        $this->alcoholUnitCreator = $alcoholUnitCreator;
+        $this->bmiCreator = $bmiCreator;
     }
 
     /**
@@ -115,14 +128,35 @@ class MedicalRecordCreator
 
             if (!empty($data['chief_complaint'])) {
                 $chiefComplaintData = $data['chief_complaint'];
-                $chiefComplaintData['medical_record_id'] = $medicalRecord->id;
-                $this->cheifComplainCreator->store($chiefComplaintData);
+                foreach($chiefComplaintData as $key => $complaintsData)
+                {
+                    $chiefComplaintData[$key]['medical_record_id'] = $medicalRecord->id; 
+                }
+                $this->cheifComplainCreator->insert($chiefComplaintData);
             }
 
             if (!empty($data['patient_history'])) {
                 $patientHistoryData = $data['patient_history'];
                 $patientHistoryData['medical_record_id'] = $medicalRecord->id;
                 $this->patientHistoryCreator->store($patientHistoryData);
+            }
+            if (!empty($data['patient_history']['personal_history']['pack_year'])) {
+                $packYearData = $data['patient_history']['personal_history']['pack_year'];
+                $packYearData['patient_id'] = $data['patient_id'];
+                $packYearData['medical_record_id'] = $medicalRecord->id;
+                $this->packYearCreator->store($packYearData);
+            }
+            if (!empty($data['patient_history']['personal_history']['units_per_week'])) {
+                $alcoholUnitData = $data['patient_history']['personal_history']['units_per_week'];
+                $alcoholUnitData['patient_id'] = $data['patient_id'];
+                $alcoholUnitData['medical_record_id'] = $medicalRecord->id;
+                $this->alcoholUnitCreator->store($alcoholUnitData);
+            }
+            if (!empty($data['bmi'])) {
+                $bmiData = $data['bmi'];
+                $bmiData['patient_id'] = $data['patient_id'];
+                $bmiData['medical_record_id'] = $medicalRecord->id;
+                $this->bmiCreator->store($bmiData);
             }
 
             if (!empty($data['allergies'])) {
@@ -131,6 +165,12 @@ class MedicalRecordCreator
                     'patient_id' => $data['patient_id']
                 ];
                 $this->allergyCreator->store($allergyData);
+            }
+
+            if (!empty($data['vitals'])) {
+                $vitalsData = $data['vitals'];
+                $vitalsData['medical_record_id'] = $medicalRecord->id;
+                $this->vitalsCreator->store($vitalsData);
             }
 
             if (!empty($data['menstrual_history'])) {
@@ -156,7 +196,6 @@ class MedicalRecordCreator
                 'medical_record' => $medicalRecord
             ];
         } catch (Exception $e) {
-            dd($e);
             DB::rollBack();
             throw $e;
         }

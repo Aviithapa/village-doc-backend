@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('patient_id')->constrained('patients', 'id');
-            $table->foreignId('doctor_id')->constrained('doctors', 'id')->nullable();
-            $table->foreignId('medical_record_id')->constrained('medical_records', 'id')->nullable();
+            $table->foreignId('doctor_id')->nullable()->constrained('doctors', 'id');
+            $table->foreignId('medical_record_id')->nullable()->constrained('medical_records', 'id');
             $table->date('appointment_date');
             $table->time('appointment_time');
             $table->text('reason');
