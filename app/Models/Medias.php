@@ -36,7 +36,8 @@ class Medias extends Model
         'disk',
         'patient_id',
         'medical_record_id',
-        'type'
+        'type',
+        'doctor_id'
     ];
 
     public function getUrlAttribute()
