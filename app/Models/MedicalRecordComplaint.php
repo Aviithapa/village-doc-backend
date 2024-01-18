@@ -14,14 +14,14 @@ class MedicalRecordComplaint extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'compalint_id',
+        'complaint_id ',
         'medical_record_id',
         'duration'
     ];
 
     public function complaint(): BelongsTo
     {
-        return $this->belongsTo(Complaint::class, 'compalint_id', 'id');
+        return $this->belongsTo(Complaint::class, 'complaint_id', 'id');
     }
 
     public function medical_record(): BelongsTo

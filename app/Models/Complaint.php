@@ -25,6 +25,6 @@ class Complaint extends Model
 
     public function medicalRecordComplaint(): BelongsTo
     {
-        return $this->belongsTo(MedicalRecordComplaint::class);
+        return $this->belongsTo(MedicalRecordComplaint::class, 'complaint_id', 'id');
     }
 }

@@ -85,7 +85,7 @@ Route::get('/address', [AddressController::class, 'index'])->name('address.index
 Route::get('patients/familyDetails/{id}', [PatientsController::class, 'getFamilyDetail'])->name('patient.familyhead.detail');
 Route::get('patient/validatePatient', [PatientsController::class, 'validatePatient'])->name('patient.validate');
 
-Route::get('dashboard', [DashboardController::class, 'dashboard'])->middleware(['auth:api']);
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->middleware(['auth:api']);
 
 Route::get('/getAppointmentUniqueUser', [AppointmentController::class, 'getAppointmentUniqueUser'])->middleware(['auth:api']);
 
