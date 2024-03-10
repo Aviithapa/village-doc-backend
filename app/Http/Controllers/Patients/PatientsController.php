@@ -25,7 +25,7 @@ class PatientsController extends Controller
     use ApiResponser;
     /**
      * Display a listing of the resource.
-     * 
+     *
      * @param Request $request
      * @param PatientsGetter $patientsGetter
      * @return AnonymousResourceCollection
@@ -37,7 +37,7 @@ class PatientsController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *  
+     *
      * @param CreatePatientsRequest $request
      * @param PatientsCreator $patientsCreator
      * @return JsonResponse
@@ -55,7 +55,7 @@ class PatientsController extends Controller
 
     /**
      * Display the specified resource.
-     * 
+     *
      * @param  int  $id
      * @param PatientsGetter $patientsGetter
      * @return JsonResponse
@@ -93,7 +93,7 @@ class PatientsController extends Controller
 
     /**
      * Display a listing of the resource.
-     * 
+     *
      * @param Request $request
      * @param PatientsGetter $patientsGetter
      * @return AnonymousResourceCollection
@@ -102,7 +102,6 @@ class PatientsController extends Controller
     {
         return  PatientSelectResource::collection($patientsGetter->getPaginatedList($request));
     }
-
 
     public function patientVital($id, VitalGetter $vitalGetter)
     {
@@ -131,3 +130,6 @@ class PatientsController extends Controller
         return  $this->successResponse(PatientsResource::make($patientsGetter->validatePatient($data)));
     }
 }
+
+
+

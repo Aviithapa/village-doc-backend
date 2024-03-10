@@ -44,6 +44,12 @@ Route::get('/refresh-token', [AuthController::class, 'refresh'])->middleware(['a
 
 
 Route::apiResource('/patients', PatientsController::class);
+// automatic route to this functions
+// index - list
+// store - create
+// show- get by id
+// update -
+// destroy -delete
 Route::apiResource('/vital', VitalController::class)->middleware(['auth:api']);
 Route::post('/medical-record/new', [MedicalRecordController::class, 'newmedicalRecordStore'])->middleware(['auth:api']);
 Route::apiResource('/medical-record', MedicalRecordController::class)->middleware(['auth:api']);
