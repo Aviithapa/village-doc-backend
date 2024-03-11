@@ -40,7 +40,7 @@ use Illuminate\Support\Facades\Route;
 Route::match(['post', 'get'], '/login', [AuthController::class, 'login'])->name('login');
 Route::match(['post', 'get'], '/logout', [AuthController::class, 'logout'])->middleware(['auth:api'])->name('logout');
 Route::get('/me', [AuthController::class, 'me'])->middleware(['auth:api'])->name('me');
-Route::get('/refresh-token', [AuthController::class, 'refresh'])->middleware(['auth:api'])->name('refresh');
+Route::post('/refresh-token', [AuthController::class, 'refresh'])->middleware(['auth:api'])->name('refresh');
 
 
 Route::apiResource('/patients', PatientsController::class);

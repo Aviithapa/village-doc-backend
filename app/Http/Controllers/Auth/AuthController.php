@@ -27,17 +27,32 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
-        return $this->respondWithTokens($user);
+        $accessToken = JWTAuth::fromUser($user);
+        $refreshToken = JWTAuth::fromUser($user);
+
+        return $this->respondWithTokens($accessToken, $refreshToken, $user);
     }
 
-    private function respondWithTokens($user)
+    private function respondWithTokens($accessToken, $refreshToken, $user)
     {
-        $accessToken = JWTAuth::fromUser($user);
-        $user->roles;
         return response()->json([
             'access_token' => $accessToken,
+            'refresh_token' => $refreshToken,
+            'token_type' => 'bearer', // Optional for better client-side handling
+            'expires_in' => JWTAuth::factory()->getTTL() * 60, // Convert TTL to seconds
             'user' => $user
         ]);
+    }
+
+    public function refresh(Request $request)
+    {
+
+        $oldToken = $request->refresh_token;
+        $oldToken = JWTAuth::getToken();
+        $token = JWTAuth::refresh($oldToken);
+        $user = Auth::user();
+        $refreshToken = JWTAuth::fromUser($user);
+        return $this->respondWithTokens($token, $refreshToken, $user);
     }
 
 
@@ -52,14 +67,24 @@ class AuthController extends Controller
         return $this->successResponse(Auth::user(),  __('Logged in user'), Response::HTTP_OK);
     }
 
-    public function refresh()
-    {
-        $data = [
-            Auth::user(),
-            Auth::refresh(),
-        ];
-        return $this->successResponse($data, __('Token refreshed successfully'), Response::HTTP_OK);
-    }
+    // public function authTokenRefresh(Request $request)
+    // {
+    //     $refreshToken = request()->get('refresh_token');
+
+    //     $result = JWTAuth::refresh($refreshToken); // Use current token for refresh
+
+    //     if ($result) {
+    //         return response()->json([
+    //             'success' => true,
+    //             'access_token' => $result,
+    //             'token_type' => 'bearer', // Optional for better client-side handling
+    //             'expires_in' => JWTAuth::factory()->getTTL() * 60 // Convert TTL to seconds
+    //         ]);
+    //     } else {
+    //         return response()->json(['error' => 'Refresh token is invalid'], 401);
+    //     }
+    // }
+
 
 
     public function changePassword(Request $request)
