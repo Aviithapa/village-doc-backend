@@ -35,13 +35,14 @@ class AuthController extends Controller
 
     private function respondWithTokens($accessToken, $refreshToken, $user)
     {
-        return response()->json([
+        $data = [
             'access_token' => $accessToken,
             'refresh_token' => $refreshToken,
             'token_type' => 'bearer', // Optional for better client-side handling
             'expires_in' => JWTAuth::factory()->getTTL() * 60, // Convert TTL to seconds
             'user' => $user
-        ]);
+        ];
+        return $this->successResponse($data, __('Logged in successful.'));
     }
 
     public function refresh(Request $request)
@@ -66,26 +67,6 @@ class AuthController extends Controller
     {
         return $this->successResponse(Auth::user(),  __('Logged in user'), Response::HTTP_OK);
     }
-
-    // public function authTokenRefresh(Request $request)
-    // {
-    //     $refreshToken = request()->get('refresh_token');
-
-    //     $result = JWTAuth::refresh($refreshToken); // Use current token for refresh
-
-    //     if ($result) {
-    //         return response()->json([
-    //             'success' => true,
-    //             'access_token' => $result,
-    //             'token_type' => 'bearer', // Optional for better client-side handling
-    //             'expires_in' => JWTAuth::factory()->getTTL() * 60 // Convert TTL to seconds
-    //         ]);
-    //     } else {
-    //         return response()->json(['error' => 'Refresh token is invalid'], 401);
-    //     }
-    // }
-
-
 
     public function changePassword(Request $request)
     {

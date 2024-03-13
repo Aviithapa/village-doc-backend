@@ -124,12 +124,9 @@ class PatientsController extends Controller
         return  $this->successResponse(PatientsResource::make($patientsGetter->getFamilyHeadDetail($id)));
     }
 
-    public function validatePatient(Request $request,PatientsGetter $patientsGetter)
+    public function validatePatient(Request $request, PatientsGetter $patientsGetter)
     {
         $data = $request->all();
         return  $this->successResponse(PatientsResource::make($patientsGetter->validatePatient($data)));
     }
 }
-
-
-
