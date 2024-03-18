@@ -14,8 +14,9 @@ class FollowUpResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-   
+
         return [
+            'id'    => $this->id,
             'condition' => $this->condition,
             'reaction' => $this->reaction,
             'medication' => $this->medication,

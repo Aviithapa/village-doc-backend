@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Doctor;
+namespace App\Repositories\FollowUp;
 
 use App\Models\FollowUp;
 use App\Repositories\FollowUp\FollowUpFilter;
@@ -28,7 +28,7 @@ class FollowUpRepository extends Repository
     public function getPaginatedList(Request $request, array $columns = array('*')): LengthAwarePaginator
     {
         $limit = $request->get('limit', config('app.per_page'));
-        $medicalRecordId = $request->medical_record_id;
+
         return $this->model->newQuery()
             ->filter(new FollowUpFilter($request))
             ->latest()

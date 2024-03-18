@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vitals_follow_up', function (Blueprint $table) {
+        Schema::create('follow_up_vitals', function (Blueprint $table) {
             $table->id();
-            // $table->enum('TPRBS', ['Blood Pressure', 'Pulse', 'Temperature (°F)', 'Respiration', 'SpO2'])->default('');
-            // $table->string('value')->nullable();
+            $table->enum('TPRBS', ['Blood Pressure', 'Pulse', 'Temperature (°F)', 'Respiration', 'SpO2'])->nullable();
+            $table->string('value')->nullable();
             $table->unsignedBigInteger('follow_up_id')->nullable();
-            $table->foreign('follow_up_id')->references('id')->on('follow_up')->onDelete('cascade');
+            $table->foreign('follow_up_id')->references('id')->on('follow_ups')->onDelete('cascade');
 
             $table->timestamps();
         });

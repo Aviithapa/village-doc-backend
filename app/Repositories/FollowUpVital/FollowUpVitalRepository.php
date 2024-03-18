@@ -1,22 +1,23 @@
 <?php
 
-namespace App\Repositories\Category;
+namespace App\Repositories\FollowUpVital;
 
-use App\Models\Category;
+use App\Models\FollowUpVital;
+use App\Repositories\FollowUp\FollowUpVitalFilter;
 use App\Repositories\Repository;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class CategoryRepository extends Repository
+class FollowUpVitalRepository extends Repository
 {
 
     /**
-     * CategoryRepository constructor.
-     * @param Category $category
+     * FollowUpVitalRepository constructor.
+     * @param FollowUpVital $FollowUpVital
      */
-    public function __construct(Category $category)
+    public function __construct(FollowUpVital $followUpVital)
     {
-        parent::__construct($category);
+        parent::__construct($followUpVital);
     }
 
     /**
@@ -27,7 +28,9 @@ class CategoryRepository extends Repository
     public function getPaginatedList(Request $request, array $columns = array('*')): LengthAwarePaginator
     {
         $limit = $request->get('limit', config('app.per_page'));
+        $medicalRecordId = $request->medical_record_id;
         return $this->model->newQuery()
+            ->filter(new FollowUpVitalFilter($request))
             ->latest()
             ->paginate($limit);
     }

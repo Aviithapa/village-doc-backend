@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('follow_up', function (Blueprint $table) {
+        Schema::create('follow_ups', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('medical_record_id')->anullable();
             $table->text('add_on_symptom')->nullable();
