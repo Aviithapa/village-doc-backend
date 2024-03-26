@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\FollowUp;
 
+use App\Models\FollowUp;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class FollowUpRequest extends FormRequest
 {
@@ -21,12 +23,13 @@ class FollowUpRequest extends FormRequest
      */
     public function rules(): array
     {
+        $conditionRule = Rule::in(FollowUp::CONDITION);
         return [
             'medical_record_id' => 'required|exists:medical_records,id,deleted_at,NULL',
-            "add_on_symptom" => 'sometimes|required',
-            "reaction" => 'sometimes|required',
-            "condition" => 'sometimes|required',
-            "medication" => 'sometimes|required',
+            "add_on_symptom" => 'sometimes|string|required',
+            "reaction" => 'sometimes|string|required',
+            "condition" => ['sometimes', 'required', $conditionRule],
+            "medication" => 'sometimes|required|boolean',
         ];
     }
 }

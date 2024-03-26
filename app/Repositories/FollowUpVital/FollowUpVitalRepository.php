@@ -28,7 +28,6 @@ class FollowUpVitalRepository extends Repository
     public function getPaginatedList(Request $request, array $columns = array('*')): LengthAwarePaginator
     {
         $limit = $request->get('limit', config('app.per_page'));
-        $medicalRecordId = $request->medical_record_id;
         return $this->model->newQuery()
             ->filter(new FollowUpVitalFilter($request))
             ->latest()

@@ -10,6 +10,7 @@ use App\Services\FollowUp\FollowUpCreater;
 use App\Services\FollowUp\FollowUpGetter;
 use App\Services\FollowUp\FollowUpUpdater;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -19,7 +20,7 @@ class FollowUpController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request, FollowUpGetter $followUpGetter)
+    public function index(Request $request, FollowUpGetter $followUpGetter): AnonymousResourceCollection
     {
         return FollowUpResource::collection($followUpGetter->getPaginatedList($request));
     }

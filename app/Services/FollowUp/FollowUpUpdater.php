@@ -2,6 +2,7 @@
 
 namespace App\Services\FollowUp;
 
+use App\Models\FollowUp;
 use App\Repositories\FollowUp\FollowUpRepository;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -12,10 +13,10 @@ use Illuminate\Support\Facades\DB;
  */
 class FollowUpUpdater
 {
-    protected $followupRepository;
     /**
      * @var FollowUpRepository
      */
+    protected $followupRepository;
 
     /**
      * FollowUpUpdater constructor.
@@ -28,6 +29,7 @@ class FollowUpUpdater
 
     /**
      * Update an FollowUp
+     * @param int id
      * @param array $data
      * @return \Illuminate\Database\Eloquent\Model
      */
@@ -39,7 +41,7 @@ class FollowUpUpdater
             $followup =  $this->followupRepository->update($id, $data);
             DB::commit();
             $followup = $this->followupRepository->find($id);
-            return $followup->refresh();
+            return $followup;
         } catch (Exception $e) {
             DB::rollBack();
             throw $e;
@@ -48,7 +50,17 @@ class FollowUpUpdater
 
     public function delete(int $id)
     {
-        $followup = $this->followupRepository->delete($id);
-        return true;
+        DB::beginTransaction();
+
+        try {
+            $followUp = FollowUp::findOrFail($id);
+            $followUp->vitals()->delete();
+            $followUp->delete();
+            DB::commit();
+            return true;
+        } catch (\Exception $e) {
+            DB::rollback();
+            return false;
+        }
     }
 }

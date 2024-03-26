@@ -18,7 +18,7 @@ class VitalResource extends JsonResource
             "id"   => $this->id,
             "TPRBS"  => $this->TPRBS,
             'value'  => $this->value,
-            'follow_up_id' => $this->follow_up_id,
+            'follow_up' => $this->follow_up,
         ];
     }
 }

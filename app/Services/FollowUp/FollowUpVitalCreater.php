@@ -23,19 +23,6 @@ class FollowUpVitalCreater
             DB::beginTransaction();
             $followupVital =  $this->followUpVitalRepository->store($data);
             DB::commit();
-            return $followupVital->refresh();
-        } catch (Exception $e) {
-            DB::rollBack();
-            throw $e;
-        }
-    }
-
-    public function insert($data)
-    {
-        try {
-            DB::beginTransaction();
-            $followupVital =  $this->followUpVitalRepository->insert($data);
-            DB::commit();
             return $followupVital;
         } catch (Exception $e) {
             DB::rollBack();

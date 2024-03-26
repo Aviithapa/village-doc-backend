@@ -30,7 +30,7 @@ class FollowUpCreater
                 foreach ($FollowupVitalData as $key => $vitalData) {
                     $FollowupVitalData[$key]['follow_up_id'] = $followup->id;
                 }
-                $this->followupVitalCreator->insert($FollowupVitalData);
+                $this->followupVitalCreator->store($FollowupVitalData);
             }
             DB::commit();
             return $followup->refresh();

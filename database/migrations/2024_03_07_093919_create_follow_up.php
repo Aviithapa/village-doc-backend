@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('follow_ups', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('medical_record_id')->anullable();
+            $table->unsignedBigInteger('medical_record_id')->nullable();
             $table->text('add_on_symptom')->nullable();
             $table->text('reaction')->nullable();
-            $table->enum('condition', ['Improving/Subside', 'Not Improving'])->default('Not Improving');
+            $table->enum('condition', ['IMPROVING-SUBSIDE', 'NOT-IMPROVING'])->default('NOT-IMPROVING');
             $table->boolean('medication')->default(false);
             $table->timestamps();
 

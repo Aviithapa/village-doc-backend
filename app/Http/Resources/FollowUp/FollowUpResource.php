@@ -21,7 +21,8 @@ class FollowUpResource extends JsonResource
             'reaction' => $this->reaction,
             'medication' => $this->medication,
             'add_on_symptom' => $this->add_on_symptom,
-            'medical_record_id' => $this->medical_record_id,
+            'medical_record' => $this->medical_record,
+            'vitals' => $this->vitals,
         ];
     }
 }

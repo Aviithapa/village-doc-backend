@@ -2,7 +2,7 @@
 
 namespace App\Services\FollowUp;
 
-use App\Repositories\FollowUp\FollowUpVitalRepository;
+use App\Repositories\FollowUpVital\FollowUpVitalRepository;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\DB;
  */
 class FollowUpUpdater
 {
-    protected $followupVitalRepository;
     /**
      * @var FollowUpVitalRepository
      */
+    protected $followupVitalRepository;
 
     /**
      * FollowUpUpdater constructor.

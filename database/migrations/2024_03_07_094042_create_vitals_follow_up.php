@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('follow_up_vitals', function (Blueprint $table) {
             $table->id();
-            $table->enum('TPRBS', ['Blood Pressure', 'Pulse', 'Temperature (°F)', 'Respiration', 'SpO2'])->nullable();
+            $table->enum('TPRBS', ['BLOOD-PRESSURE', 'PULSE', 'TEMPERATURE-°F', 'RESPIRATION', 'SPO2'])->nullable();
             $table->string('value')->nullable();
             $table->unsignedBigInteger('follow_up_id')->nullable();
             $table->foreign('follow_up_id')->references('id')->on('follow_ups')->onDelete('cascade');

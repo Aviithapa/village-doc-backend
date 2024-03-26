@@ -2,17 +2,17 @@
 
 namespace App\Services\FollowUp;
 
-use App\Repositories\FollowUp\FollowUpVitalRepository;
+use App\Repositories\FollowUpVital\FollowUpVitalRepository;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class FollowUpVitalGetter
 {
-    protected $followupVitalRepository;
 
     /**
      * @var FollowUpVitalRepository
      */
+    protected $followupVitalRepository;
 
     /**
      * FollowUpVitalGetter constructor.
