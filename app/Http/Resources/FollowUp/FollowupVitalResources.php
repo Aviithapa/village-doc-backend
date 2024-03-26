@@ -16,8 +16,11 @@ class VitalResource extends JsonResource
     {
         return [
             "id"   => $this->id,
-            "TPRBS"  => $this->TPRBS,
-            'value'  => $this->value,
+            "blood_pressure"  => $this->blood_pressure,
+            "pulse"  => $this->pulse,
+            "temperature"  => $this->temperature,
+            "respiration"  => $this->respiration,
+            "saturation"  => $this->saturation,
             'follow_up' => $this->follow_up,
         ];
     }

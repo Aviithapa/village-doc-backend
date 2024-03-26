@@ -26,7 +26,7 @@ class FollowUpRequest extends FormRequest
         $conditionRule = Rule::in(FollowUp::CONDITION);
         return [
             'medical_record_id' => 'required|exists:medical_records,id,deleted_at,NULL',
-            "add_on_symptom" => 'sometimes|string|required',
+            "add_on_symptom" => 'sometimes|required',
             "reaction" => 'sometimes|string|required',
             "condition" => ['sometimes', 'required', $conditionRule],
             "medication" => 'sometimes|required|boolean',
