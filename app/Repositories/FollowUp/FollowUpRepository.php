@@ -1,22 +1,23 @@
 <?php
 
-namespace App\Repositories\Category;
+namespace App\Repositories\FollowUp;
 
-use App\Models\Category;
+use App\Models\FollowUp;
+use App\Repositories\FollowUp\FollowUpFilter;
 use App\Repositories\Repository;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class CategoryRepository extends Repository
+class FollowUpRepository extends Repository
 {
 
     /**
-     * CategoryRepository constructor.
-     * @param Category $category
+     * FollowUpRepository constructor.
+     * @param FollowUp $FollowUp
      */
-    public function __construct(Category $category)
+    public function __construct(FollowUp $followUp)
     {
-        parent::__construct($category);
+        parent::__construct($followUp);
     }
 
     /**
@@ -27,7 +28,9 @@ class CategoryRepository extends Repository
     public function getPaginatedList(Request $request, array $columns = array('*')): LengthAwarePaginator
     {
         $limit = $request->get('limit', config('app.per_page'));
+
         return $this->model->newQuery()
+            ->filter(new FollowUpFilter($request))
             ->latest()
             ->paginate($limit);
     }

@@ -15,15 +15,13 @@ class VitalResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'   => $this->id,
-            'blood_pressure' => $this->blood_pressure,
-            'pulse' => $this->pulse,
-            'temperature' => $this->temperature,
-            'respiration' => $this->respiration,
-            'saturation' => $this->saturation,
-            'created_by' => $this->created_by,
-            'updated_by' => $this->updated_by,
-
+            "id"   => $this->id,
+            "blood_pressure"  => $this->blood_pressure,
+            "pulse"  => $this->pulse,
+            "temperature"  => $this->temperature,
+            "respiration"  => $this->respiration,
+            "saturation"  => $this->saturation,
+            'follow_up' => $this->follow_up,
         ];
     }
 }

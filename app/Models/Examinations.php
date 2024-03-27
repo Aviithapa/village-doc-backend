@@ -13,6 +13,7 @@ class Examinations extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'general_appearance',
         'well_oriented',
         'in_pain',
         'eye_opening_gcs',

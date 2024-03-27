@@ -14,6 +14,7 @@ use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\Department\DepartmentTestController;
 use App\Http\Controllers\Doctor\DoctorController;
 use App\Http\Controllers\Doctor\DoctorScheduleController;
+use App\Http\Controllers\FollowUp\FollowUpController;
 use App\Http\Controllers\LabResult\LabController;
 use App\Http\Controllers\MedicalRecord\MedicalRecordComplaintController;
 use App\Http\Controllers\MedicalRecord\MedicalRecordController;
@@ -40,7 +41,7 @@ use Illuminate\Support\Facades\Route;
 Route::match(['post', 'get'], '/login', [AuthController::class, 'login'])->name('login');
 Route::match(['post', 'get'], '/logout', [AuthController::class, 'logout'])->middleware(['auth:api'])->name('logout');
 Route::get('/me', [AuthController::class, 'me'])->middleware(['auth:api'])->name('me');
-Route::get('/refresh-token', [AuthController::class, 'refresh'])->middleware(['auth:api'])->name('refresh');
+Route::post('/refresh-token', [AuthController::class, 'refresh'])->middleware(['auth:api'])->name('refresh');
 
 
 Route::apiResource('/patients', PatientsController::class);
@@ -76,9 +77,6 @@ Route::apiResource('/user', UserController::class)->middleware(['auth:api']);
 Route::apiResource('/role', RolesController::class)->middleware(['auth:api']);
 
 
-
-
-
 Route::get('/family-head/{household_no}', [PatientsController::class, 'showFamilyHead'])->name('patient.family-head');
 Route::get('/address', [AddressController::class, 'index'])->name('address.index');
 
@@ -94,3 +92,4 @@ Route::put('/updateBulkAppointment', [AppointmentController::class, 'updateBulkA
 Route::apiResource('/alcohol', AlcoholController::class)->middleware(['auth:api']);
 Route::apiResource('/pack-year', PackYearController::class)->middleware(['auth:api']);
 Route::apiResource('/bmi', BmiController::class)->middleware(['auth:api']);
+Route::apiResource('/followup', FollowUpController::class)->middleware(['auth:api']);
